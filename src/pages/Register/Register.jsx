@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -19,6 +21,10 @@ const Register = () => {
   const [upazilas, setUpazilas] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
+
+  const { createUser, updateUserProfile } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -70,6 +76,25 @@ const Register = () => {
         districtName,
         upazilaName,
       };
+
+      createUser(data.email, data.password).then((result) => {
+        console.log(result.user);
+        updateUserProfile(data.name, res.data.data.display_url).then(() => {
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              // reset();
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "User created successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              }),
+                navigate("/");
+            }
+          });
+        });
+      });
 
       console.log(userInfo);
     }

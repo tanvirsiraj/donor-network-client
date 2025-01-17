@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const {
@@ -9,11 +11,21 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const { signIn } = useContext(AuthContext);
 
   const onSubmit = (data) => {
     console.log(data);
-    // Redirect to dashboard or homepage after successful login
-    navigate("/dashboard");
+    signIn(data.email, data.password).then((result) => {
+      console.log(result.user);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "User Login Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/");
+    });
   };
 
   return (
