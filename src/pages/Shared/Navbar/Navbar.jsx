@@ -1,8 +1,17 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../../public/logo.png";
+import useAuth from "../../../hooks/useAuth";
+import { useState } from "react";
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
   const links = (
-    <>
+    <div className="flex items-center">
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
@@ -12,18 +21,51 @@ const Navbar = () => {
       <li>
         <NavLink to="/blog">Blog</NavLink>
       </li>
-      <li>
-        <Link
-          className="bg-primaryColor text-white hover:bg-primaryColor hover:text-white text-lg font-semibold"
-          to="/login"
-        >
-          Login
-        </Link>
-      </li>
-    </>
+
+      {user ? (
+        <>
+          <li>
+            <NavLink to="/funding">Funding</NavLink>
+          </li>
+          <div className="dropdown dropdown-end dropdown-hover ">
+            <div tabIndex={0} role="button" className="">
+              <img
+                src={user.photoURL || "/default-avatar.png"}
+                alt="Avatar"
+                className="w-12 h-12 rounded-full cursor-pointer "
+              />
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-100 rounded-box z-[10] w-52 p-4  shadow pt-4 space-y-4"
+            >
+              <Link to="/dashboard" className=" hover:bg-gray-100 rounded-t-lg">
+                Dashboard
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                className="bg-primaryColor text-white hover:bg-red-500 hover:text-white text-lg font-semibold w-fit px-4 py-2 rounded-lg transition duration-300"
+              >
+                Logout
+              </button>
+            </ul>
+          </div>
+        </>
+      ) : (
+        <li>
+          <Link
+            className="bg-primaryColor text-white hover:bg-primaryColor hover:text-white text-lg font-semibold"
+            to="/login"
+          >
+            Login
+          </Link>
+        </li>
+      )}
+    </div>
   );
   return (
-    <div className="bg-white shadow-lg py-2">
+    <div className="bg-white shadow-lg py-2 fixed w-full top-0 z-50">
       <div className="navbar bg-base-100 max-w-7xl mx-auto px-2 lg:px-0">
         <div className="navbar-start">
           <div className="dropdown">
@@ -58,7 +100,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+          <ul className="menu menu-horizontal  p-0 ">{links}</ul>
         </div>
       </div>
     </div>
