@@ -2,6 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
   const {
@@ -42,11 +46,33 @@ const Register = () => {
     }
   }, [selectedDistrict, upazilas]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    // image upload to imagebb and then get an url
+    const imageFile = { image: data.avatar[0] };
+    const res = await axios.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(res.data);
+
     const districtName = districts[parseInt(data.district) - 1].name;
     const upazilaName = upazilas[parseInt(data.upazila) - 1].name;
     console.log(districtName, upazilaName);
+
+    if (res.data.success) {
+      const userInfo = {
+        email: data.email,
+        name: data.name,
+        image: res.data.data.display_url,
+        bloodGroup: data.bloodGroup,
+        districtName,
+        upazilaName,
+      };
+
+      console.log(userInfo);
+    }
   };
 
   return (
