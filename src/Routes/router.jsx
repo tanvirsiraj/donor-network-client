@@ -3,6 +3,8 @@ import Main from "../Layout/Main";
 import Home from "../pages/Home/Home/Home";
 import DonationRequests from "./../pages/DonationRequests/DonationRequests/DonationRequests";
 import Blog from "../pages/Blog/Blog/Blog";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Register/Register";
 
 export const router = createBrowserRouter([
   {
@@ -14,12 +16,20 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/donationRequests",
+        path: "donationRequests",
         element: <DonationRequests></DonationRequests>,
       },
       {
-        path: "/blog",
+        path: "blog",
         element: <Blog></Blog>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "register",
+        element: <Register></Register>,
       },
     ],
   },

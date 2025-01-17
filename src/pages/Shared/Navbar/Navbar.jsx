@@ -12,10 +12,18 @@ const Navbar = () => {
       <li>
         <NavLink to="/blog">Blog</NavLink>
       </li>
+      <li>
+        <Link
+          className="bg-primaryColor text-white hover:bg-primaryColor hover:text-white text-lg font-semibold"
+          to="/login"
+        >
+          Login
+        </Link>
+      </li>
     </>
   );
   return (
-    <div>
+    <div className="bg-white shadow-lg py-2">
       <div className="navbar bg-base-100 max-w-7xl mx-auto px-2 lg:px-0">
         <div className="navbar-start">
           <div className="dropdown">
@@ -44,17 +52,13 @@ const Navbar = () => {
           </div>
           <Link to="/" className="flex items-center gap-2">
             <img className="w-[40px] h-[40px]" src={logo} alt="" />
-            <span>
-              Donor <br />
-              Network
+            <span className="text-xl font-bold leading-5">
+              <span className="text-primaryColor">Donor</span> <br /> Network
             </span>
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
-        </div>
-        <div className="navbar-end">
-          <a className="btn">Button</a>
         </div>
       </div>
     </div>
