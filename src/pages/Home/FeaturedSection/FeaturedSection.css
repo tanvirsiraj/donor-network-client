@@ -1,0 +1,28 @@
+/* FeaturedSection.css */
+@keyframes fadeIn {
+  0% {
+    transform: translateY(20px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn infinite 1s ease-in-out;
+}
+
+.animate-fadeIn.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-fadeIn.delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animate-fadeIn.delay-800 {
+  animation-delay: 0.8s;
+}

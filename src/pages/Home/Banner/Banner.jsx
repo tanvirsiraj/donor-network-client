@@ -12,14 +12,16 @@ const Banner = () => {
     >
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-neutral-content text-center">
-        <div className="max-w-2xl ">
+        <div className="max-w-4xl ">
           <h1 className="text-2xl md:text-5xl font-bold mb-4">
             Be the Link, Save a Life.
           </h1>
           <p className="text-lg leading-6 mb-10">
-            A free platform connecting blood donors with those in need across
-            Bangladesh, enabling seamless, real-time, life-saving connections
-            for everyone.
+            Donor Network is a free platform connecting blood donors with those
+            in need across Bangladesh. It provides real-time, seamless access to
+            voluntary donors, ensuring life-saving support is just a click away.
+            Join us in building a stronger, healthier community by bridging the
+            gap between donors and recipients effortlessly.
           </p>
           <div className="flex justify-center items-center gap-6 ">
             <Link
