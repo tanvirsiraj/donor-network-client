@@ -5,6 +5,7 @@ import DonationRequests from "./../pages/DonationRequests/DonationRequests/Donat
 import Blog from "../pages/Blog/Blog/Blog";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import Search from "./../pages/Search/Search";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "blog",
         element: <Blog></Blog>,
+      },
+      {
+        path: "search",
+        element: <Search></Search>,
       },
       {
         path: "login",
