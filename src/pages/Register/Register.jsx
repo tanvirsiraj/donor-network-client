@@ -67,7 +67,7 @@ const Register = () => {
 
     const districtName = districts[parseInt(data.district) - 1].name;
     const upazilaName = upazilas[parseInt(data.upazila) - 1].name;
-    console.log(districtName, upazilaName);
+    // console.log(districtName, upazilaName);
 
     if (res.data.success) {
       const userInfo = {

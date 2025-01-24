@@ -19,7 +19,6 @@ const Profile = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
   const handleEdit = () => setIsEditable(!isEditable);

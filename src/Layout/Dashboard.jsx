@@ -14,6 +14,14 @@ const Dashboard = () => {
               Profile
             </NavLink>
           </li>
+          {role == "donor" && (
+            <li>
+              <NavLink to="/dashboard/create-donation-request">
+                <FaUser />
+                Create Donation Request
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
       {/* dashboard content  */}
