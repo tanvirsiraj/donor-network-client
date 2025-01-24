@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useGetDistrictUpazila from "../../hooks/useGetDistrictUpazila";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -17,8 +18,9 @@ const Register = () => {
     watch,
   } = useForm();
 
-  const [districts, setDistricts] = useState([]);
-  const [upazilas, setUpazilas] = useState([]);
+  /*   const [districts, setDistricts] = useState([]);
+  const [upazilas, setUpazilas] = useState([]); */
+  const [districts, upazilas] = useGetDistrictUpazila();
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
 
@@ -26,7 +28,7 @@ const Register = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*   useEffect(() => {
     axios
       .get("/districts.json")
       .then((res) => setDistricts(res.data))
@@ -37,7 +39,7 @@ const Register = () => {
       .get("/upazilas.json")
       .then((res) => setUpazilas(res.data))
       .catch((error) => console.log(error));
-  }, []);
+  }, []); */
   //   console.log(districts);
 
   // Filter upazilas based on selected district
@@ -61,7 +63,7 @@ const Register = () => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(res.data);
+    // console.log(res.data);
 
     const districtName = districts[parseInt(data.district) - 1].name;
     const upazilaName = upazilas[parseInt(data.upazila) - 1].name;

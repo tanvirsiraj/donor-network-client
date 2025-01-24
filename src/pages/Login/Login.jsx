@@ -12,6 +12,7 @@ const Login = () => {
   } = useForm();
   const navigate = useNavigate();
   const { signIn } = useContext(AuthContext);
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
     console.log(data);
@@ -24,7 +25,7 @@ const Login = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/");
+      navigate(from);
     });
   };
 
