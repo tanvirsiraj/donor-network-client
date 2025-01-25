@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Layout/Dashboard";
 import Profile from "../pages/Dashboard/Profile/Profile";
 import CreateDonationRequest from "../pages/Dashboard/Donor/CreateDonationRequest/CreateDonationRequest";
+import DonationRequestDetails from "../pages/DonationRequests/DonationRequestDetails";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ export const router = createBrowserRouter([
       {
         path: "donationRequests",
         element: <DonationRequests></DonationRequests>,
+      },
+      {
+        path: "donation-requests/:id",
+        element: (
+          <PrivateRoute>
+            <DonationRequestDetails></DonationRequestDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "blog",
