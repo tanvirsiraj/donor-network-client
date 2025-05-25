@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue
   } = useForm();
   const navigate = useNavigate();
   const { signIn } = useContext(AuthContext);
@@ -28,6 +30,10 @@ const Login = () => {
       navigate(from);
     });
   };
+  useEffect(() => {
+  setValue("email", "alamin12@gmail.com");
+  setValue("password", "developer504");
+}, [setValue]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-primaryColor bg-opacity-20">
@@ -40,12 +46,14 @@ const Login = () => {
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
+             
             >
               Email
             </label>
             <input
               type="email"
               id="email"
+             
               {...register("email", { required: "Email is required" })}
               className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
             />
@@ -67,6 +75,7 @@ const Login = () => {
               type="password"
               id="password"
               {...register("password", { required: "Password is required" })}
+  
               className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
             />
             {errors.password && (

@@ -20,11 +20,7 @@ const CreateDonationRequest = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  if (isLoading) {
-    return (
-      <span className="loading loading-spinner loading-lg text-primaryColor"></span>
-    );
-  }
+
 
   // Filter upazilas based on the selected district
   useEffect(() => {
@@ -37,6 +33,11 @@ const CreateDonationRequest = () => {
       setFilteredUpazilas([]);
     }
   }, [selectedDistrict, upazilas]);
+    if (isLoading) {
+    return (
+      <span className="loading loading-spinner loading-lg text-primaryColor"></span>
+    );
+  }
 
   const onSubmit = async (data) => {
     if (userData.status !== "active") {
@@ -72,13 +73,15 @@ const CreateDonationRequest = () => {
         "/donation-requests",
         donationRequest
       );
-      if (response.data.insertedId) {
+      if (response?.data?.insertedId) {
         Swal.fire({
           icon: "success",
           title: "Request Created",
           text: "Your donation request has been successfully created.",
         });
         reset();
+        setSelectedDistrict("");
+setFilteredUpazilas([]);
       }
     } catch (error) {
       console.error("Error creating donation request:", error);
