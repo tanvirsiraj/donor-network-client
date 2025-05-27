@@ -12,6 +12,7 @@ import Profile from "../pages/Dashboard/Profile/Profile";
 import CreateDonationRequest from "../pages/Dashboard/Donor/CreateDonationRequest/CreateDonationRequest";
 import DonationRequestDetails from "../pages/DonationRequests/DonationRequestDetails";
 import MyDonationRequest from "../pages/Dashboard/Donor/MyDonationRequest";
+import DashboardMain from "../pages/Dashboard/DashboardMain/DashboardMain";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +61,11 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        index: true,
+        element:<DashboardMain/>
+
+      },
       {
         path: "profile",
         element: <Profile></Profile>,

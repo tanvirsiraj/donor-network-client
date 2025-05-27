@@ -1,43 +1,87 @@
-import { FaUser } from "react-icons/fa";
+
+
+import { useState } from "react";
+import { FaBars, FaList, FaPlus, FaTimes, FaUsers, FaUser } from "react-icons/fa";
+import useRole from "../hooks/userRole";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
-  const role = "donor";
+  const { role, isLoading } = useRole();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  if (isLoading) return <div className="text-center py-10">Loading...</div>;
+
   return (
-    <div className="flex ">
-      {/* dashboard side bar  */}
-      <div className="w-64 min-h-screen bg-primaryColor bg-opacity-20">
+    <div className="flex flex-col md:flex-row min-h-screen relative">
+      {/* Sidebar Toggle (Mobile) */}
+      <div className="md:hidden p-4">
+        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+          {isSidebarOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      <div
+        className={`${
+          isSidebarOpen ? "block" : "hidden"
+        } md:block w-full md:w-64 bg-primaryColor bg-opacity-20 absolute md:relative z-10`}
+      >
         <ul className="menu p-4">
           <li>
-            <NavLink to="/dashboard/profile">
-              <FaUser />
-              Profile
-            </NavLink>
+    <NavLink to="/dashboard" end>
+      <FaUser /> Dashboard Home
+    </NavLink>
+  </li>
+          <li>
+            <NavLink to="/dashboard/profile"><FaUser /> Profile</NavLink>
           </li>
-          {role == "donor" && (
-           <>
-            <li>
-              <NavLink to="/dashboard/create-donation-request">
-                <FaUser />
-                Create Donation Request
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/my-donation-request">
-                <FaUser />
-                my Donation Request
-              </NavLink>
-            </li>
-           </>
+          {role === "donor" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/create-donation-request">
+                  <FaPlus/> Create Donation Request
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/my-donation-request">
+                  <FaList/> My Donation Requests
+                </NavLink>
+              </li>
+            </>
+          )}
+          {role === "volunteer" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/volunteer-requests">
+                  <FaList /> Assigned Requests
+                </NavLink>
+              </li>
+            </>
+          )}
+          {role === "admin" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/manage-users">
+                  <FaUsers /> Manage Users
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/all-requests">
+                  <FaList /> All Donation Requests
+                </NavLink>
+              </li>
+            </>
           )}
         </ul>
       </div>
-      {/* dashboard content  */}
-      <div className="flex-1 ml-4 mt-2">
-        <Outlet></Outlet>
+
+      {/* Content */}
+      <div className="flex-1 p-4">
+        <Outlet />
       </div>
     </div>
   );
 };
 
 export default Dashboard;
+
