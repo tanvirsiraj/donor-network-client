@@ -61,8 +61,8 @@ const Dashboard = () => {
           {role === "admin" && (
             <>
               <li>
-                <NavLink to="/dashboard/manage-users">
-                  <FaUsers /> Manage Users
+                <NavLink to="/dashboard/all-users">
+                  <FaUsers />All Users
                 </NavLink>
               </li>
               <li>
