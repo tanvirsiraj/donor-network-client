@@ -7,6 +7,7 @@ const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [users, setUsers] = useState([]);
   const [openDropdownId, setOpenDropdownId] = useState(null);
+  const [filterStatus, setFilterStatus] = useState('all');
 
   useEffect(() => {
     axiosSecure.get('/all-users')
@@ -35,7 +36,23 @@ const AllUsers = () => {
 
   return (
     <div className="p-4">
-      <h3 className="text-xl font-semibold mb-4">All Users</h3>
+     <div className='flex justify-between items-center mb-4'>
+       <h3 className="text-xl font-semibold mb-4">All Users</h3>
+       {/* filter by status */}
+        <div className="mb-4">
+      
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="select select-bordered w-full max-w-xs h-1/2"
+          >
+            <option value="all">All</option>
+            <option value="active">Active</option>
+            <option value="blocked">Blocked</option>
+          </select>
+          </div>
+     </div>
+
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead className="bg-gray-100">
@@ -49,7 +66,9 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {users
+            .filter(user => filterStatus === 'all' || user.status === filterStatus)
+            .map((user, index) => (
               <tr key={user._id}>
                 <td>
                   <img src={user.image} alt="avatar" className="w-10 h-10 rounded-full" />
@@ -63,7 +82,7 @@ const AllUsers = () => {
                     <BsThreeDotsVertical />
                   </button>
                   {openDropdownId === user._id && (
-                    <div className={`absolute z-10 bg-white border rounded shadow-md p-2 right-0 w-40 space-y-1
+                    <div className={`absolute z-10 bg-white border rounded-md shadow-md p-2 right-0 w-40 space-y-1
   ${shouldRenderUp(index) ? 'bottom-full mb-1' : 'top-full mt-1'}
 `}>
                       {user.status === 'active' ? (
@@ -95,6 +114,14 @@ const AllUsers = () => {
                           onClick={() => handleRoleChange(user._id, 'admin')}
                         >
                           Make Admin
+                        </button>
+                      )}
+                      {user.role !== 'donor' && (
+                        <button
+                          className="w-full text-left hover:bg-gray-100 px-2 py-1"
+                          onClick={() => handleRoleChange(user._id, 'donor')}
+                        >
+                          Make Donor
                         </button>
                       )}
                     </div>
