@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const Login = () => {
+  const axiosSecure = useAxiosSecure()
   const {
     register,
     handleSubmit,
@@ -16,10 +18,26 @@ const Login = () => {
   const { signIn } = useContext(AuthContext);
   const from = location.state?.from?.pathname || "/";
 
-  const onSubmit = (data) => {
-    console.log(data);
-    signIn(data.email, data.password).then((result) => {
-      console.log(result.user);
+  const onSubmit = async (data) => {
+    try {
+      const result = await signIn(data.email, data.password);
+
+      // After signIn success, fetch user info from your backend
+      const response = await axiosSecure.get(`/users?email=${data.email}`);
+      const user = await response?.data;
+      console.log(user, 'user login');
+
+      if (user?.status === "blocked") {
+        // Show alert if blocked
+        Swal.fire({
+          icon: "error",
+          title: "Account Blocked",
+          text: "Your account has been blocked. Please contact support.",
+        });
+        return; // stop login flow here
+      }
+
+      // If not blocked, show success and navigate
       Swal.fire({
         position: "top-center",
         icon: "success",
@@ -28,8 +46,29 @@ const Login = () => {
         timer: 1500,
       });
       navigate(from);
-    });
+    } catch (error) {
+      // Handle sign in or fetch errors
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.message || "Invalid email or password",
+      });
+    }
   };
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  //   signIn(data.email, data.password).then((result) => {
+  //     console.log(result.user);
+  //     Swal.fire({
+  //       position: "top-center",
+  //       icon: "success",
+  //       title: "User Login Successful",
+  //       showConfirmButton: false,
+  //       timer: 1500,
+  //     });
+  //     navigate(from);
+  //   });
+  // };
   useEffect(() => {
   setValue("email", "alamin12@gmail.com");
   setValue("password", "developer504");
