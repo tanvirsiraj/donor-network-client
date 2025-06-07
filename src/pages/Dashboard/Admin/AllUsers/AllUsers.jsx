@@ -28,6 +28,10 @@ const AllUsers = () => {
     const res = await axiosSecure.get('/all-users');
     setUsers(res.data);
   };
+  const shouldRenderUp = index => {
+  const remaining = users.length - index;
+  return remaining <= 2; // If only 2 or fewer users below
+};
 
   return (
     <div className="p-4">
@@ -45,7 +49,7 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map(user => (
+            {users.map((user, index) => (
               <tr key={user._id}>
                 <td>
                   <img src={user.image} alt="avatar" className="w-10 h-10 rounded-full" />
@@ -59,7 +63,9 @@ const AllUsers = () => {
                     <BsThreeDotsVertical />
                   </button>
                   {openDropdownId === user._id && (
-                    <div className="absolute z-10 bg-white border rounded shadow-md p-2 right-0 top-full mt-1 w-40 space-y-1">
+                    <div className={`absolute z-10 bg-white border rounded shadow-md p-2 right-0 w-40 space-y-1
+  ${shouldRenderUp(index) ? 'bottom-full mb-1' : 'top-full mt-1'}
+`}>
                       {user.status === 'active' ? (
                         <button
                           className="w-full text-left text-red-600 hover:bg-gray-100 px-2 py-1"
