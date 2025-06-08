@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 
 const Login = () => {
@@ -16,6 +17,7 @@ const Login = () => {
   } = useForm();
   const navigate = useNavigate();
   const { signIn } = useContext(AuthContext);
+  const { logOut } = useAuth();
   const from = location.state?.from?.pathname || "/";
 
   const onSubmit = async (data) => {
@@ -28,6 +30,7 @@ const Login = () => {
       console.log(user, 'user login');
 
       if (user?.status === "blocked") {
+         await logOut();
         // Show alert if blocked
         Swal.fire({
           icon: "error",
