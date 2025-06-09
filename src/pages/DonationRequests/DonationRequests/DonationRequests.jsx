@@ -36,38 +36,49 @@ const DonationRequests = () => {
   }, []); */
 
   return (
-    <div className="max-w-7xl mx-auto mt-40">
-      <div className="py-10 bg-gray-50">
-        {/*    <h1 className="text-3xl text-center font-bold text-primaryColor mb-8">
-          Blood Donation Requests
-        </h1> */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {donationRequests.map((request) => (
-            <div key={request._id} className="card bg-white shadow-xl">
-              <div className="card-body">
-                <h2 className="card-title text-primaryColor">
-                  Recipient: {request.recipientName}
-                </h2>
-                <p>
-                  Location: {request.recipientDistrict},{" "}
-                  {request.recipientUpazila}
-                </p>
-                <p>
-                  Blood Group: <strong>{request.bloodGroup}</strong>
-                </p>
-                <p>Date: {request.donationDate}</p>
-                <p>Time: {request.donationTime}</p>
-                <div className="card-actions justify-end">
-                  <Link to={`/donation-requests/${request._id}`}>
-                    <button className="btn btn-primary">View Details</button>
-                  </Link>
-                </div>
+  <div className="max-w-7xl mx-auto mt-40">
+  <div className="py-10 bg-gray-50">
+    {donationRequests?.length === 0 ? (
+      <div className="flex flex-col items-center justify-center text-center px-4">
+      
+       
+        <h2 className="text-2xl font-semibold text-gray-600">
+          No Donation Requests Currently Available
+        </h2>
+        <p className="text-gray-500 mt-2">
+          Please check back later or explore other sections.
+        </p>
+      </div>
+    ) : (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {donationRequests.map((request) => (
+          <div key={request._id} className="card bg-white shadow-xl">
+            <div className="card-body">
+              <h2 className="card-title text-primaryColor">
+                Recipient: {request.recipientName}
+              </h2>
+              <p>
+                Location: {request.recipientDistrict},{" "}
+                {request.recipientUpazila}
+              </p>
+              <p>
+                Blood Group: <strong>{request.bloodGroup}</strong>
+              </p>
+              <p>Date: {request.donationDate}</p>
+              <p>Time: {request.donationTime}</p>
+              <div className="card-actions justify-end">
+                <Link to={`/donation-requests/${request._id}`}>
+                  <button className="btn btn-primary">View Details</button>
+                </Link>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </div>
+    )}
+  </div>
+</div>
+
   );
 };
 

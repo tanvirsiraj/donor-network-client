@@ -1,87 +1,26 @@
-import React, { useEffect, useState } from "react";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import Swal from "sweetalert2";
-import UpdateModalRequest from "./UpdateModalRequest";
-import Action from "./Action";
+"use client";
 
-const MyDonationRequest = () => {
+import React, { useEffect, useState } from "react";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useAuth from "../../../../hooks/useAuth";
+
+
+const AllBloodDonationRequest = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [donationRequests, setDonationRequests] = useState([]);
   const [filter, setFilter] = useState("all");
-  const [editModalData, setEditModalData] = useState(null);
 
   useEffect(() => {
-    if (user?.email) {
-      fetchRequests();
-    }
-  }, [user]);
 
-  const fetchRequests = async () => {
-    try {
-      const res = await axiosSecure.get(
-        `/my-donation-requests?email=${user.email}`
-      );
-      setDonationRequests(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    const confirm = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won’t be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    });
-
-    if (confirm.isConfirmed) {
-      try {
-        await axiosSecure.delete(`/donation-requests/${id}`);
-        fetchRequests();
-        Swal.fire("Deleted!", "The request has been deleted.", "success");
-      } catch (err) {
-        Swal.fire("Error", "Something went wrong!", "error");
-      }
-    }
-  };
-
-  const handleUpdate = (request) => {
-    console.log("Update clicked:", request);
-    setEditModalData({ ...request });
-  };
-
-  const handleSaveUpdate = async () => {
-    try {
-      const res = await axiosSecure.patch(
-        `/donation-requests/${editModalData._id}`,
-        {
-          recipientName: editModalData.recipientName,
-          bloodGroup: editModalData.bloodGroup,
-          recipientDistrict: editModalData.recipientDistrict,
-          recipientUpazila: editModalData.recipientUpazila,
-          hospitalName: editModalData.hospitalName,
-          donationDate: editModalData.donationDate,
-          donationTime: editModalData.donationTime,
-        }
-      );
-      console.log(res.data, "updated data");
-      setEditModalData(null);
-      fetchRequests();
-      Swal.fire(
-        "Updated!",
-        "Donation request updated successfully.",
-        "success"
-      );
-    } catch (err) {
-      Swal.fire("Error", "Failed to update the request.", "error");
-    }
-  };
+      axiosSecure
+        .get(`/donation-requests`)
+        .then((res) => {
+          setDonationRequests(res.data);
+        })
+        .catch((err) => console.error(err));
+    
+  }, [user, axiosSecure]);
 
   const filteredRequests =
     filter === "all"
@@ -109,7 +48,7 @@ const MyDonationRequest = () => {
         ))}
       </div>
 
-      {/* Table */}
+      {/* Responsive Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
           <thead className="bg-gray-100 text-left text-sm uppercase text-gray-600">
@@ -122,13 +61,12 @@ const MyDonationRequest = () => {
               <th className="px-4 py-2">Date</th>
               <th className="px-4 py-2">Time</th>
               <th className="px-4 py-2">Status</th>
-              <th className="px-4 py-2">Action</th>
             </tr>
           </thead>
           <tbody className="text-gray-700">
             {filteredRequests.length === 0 ? (
               <tr>
-                <td colSpan="9" className="text-center py-4">
+                <td colSpan="8" className="text-center py-4">
                   No donation requests found.
                 </td>
               </tr>
@@ -139,9 +77,7 @@ const MyDonationRequest = () => {
                   className="border-b hover:bg-gray-50 transition"
                 >
                   <td className="px-4 py-2">{req.recipientName}</td>
-                  <td className="px-4 py-2 font-semibold text-red-600">
-                    {req.bloodGroup}
-                  </td>
+                  <td className="px-4 py-2 font-semibold text-red-600">{req.bloodGroup}</td>
                   <td className="px-4 py-2">{req.recipientDistrict}</td>
                   <td className="px-4 py-2">{req.recipientUpazila}</td>
                   <td className="px-4 py-2">{req.hospitalName}</td>
@@ -162,29 +98,14 @@ const MyDonationRequest = () => {
                       {req.status}
                     </span>
                   </td>
-                  <td className="px-4 py-2 flex gap-2">
-                    <Action
-                      handleDelete={() => handleDelete(req._id)}
-                      handleUpdate={() => handleUpdate(req)}
-                    />
-                  </td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
       </div>
-
-      {/* Edit Modal */}
-      {editModalData && (
-        <UpdateModalRequest
-          editModalData={editModalData}
-          setEditModalData={setEditModalData}
-          handleSaveUpdate={handleSaveUpdate}
-        />
-      )}
     </div>
   );
 };
 
-export default MyDonationRequest;
+export default AllBloodDonationRequest;
