@@ -1,42 +1,105 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import useAuth from '../../../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const ContentManagement = () => {
   const axiosSecure = useAxiosSecure();
   const [blogs, setBlogs] = useState([]);
-  const {user}= useAuth();
+  const [filter, setFilter] = useState('all');
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchBlogs();
   }, []);
 
-  const fetchBlogs = async () => {
-    try {
-      const response = await axiosSecure.get('/blogs');
-      setBlogs(response.data);
-    } catch (error) {
-      console.error('Error fetching blogs:', error);
+const fetchBlogs = async () => {
+  try {
+    const response = await axiosSecure.get('/blogs');
+    let filteredBlogs = response.data;
+
+    if (filter !== 'all') {
+      filteredBlogs = filteredBlogs.filter(blog => blog.status === filter);
     }
-  };
+
+    setBlogs(filteredBlogs);
+  } catch (error) {
+    console.error('Error fetching blogs:', error);
+  }
+};
 
   const handleStatusChange = async (id, newStatus) => {
     try {
       await axiosSecure.patch(`/blogs/${id}/status`, {
         status: newStatus,
-        requesterEmail: user?.email, 
+        requesterEmail: user?.email,
       });
-      fetchBlogs(); // Refresh data
+      fetchBlogs();
     } catch (error) {
       console.error('Error updating blog status:', error);
     }
   };
 
+const handleDeleteBlog = async (id) => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "This action cannot be undone!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, delete it!',
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        await axiosSecure.delete(`/blogs/${id}`);
+        fetchBlogs();
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Deleted!',
+          text: 'The blog has been deleted.',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } catch (error) {
+        console.error('Error deleting blog:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Failed to delete the blog.',
+        });
+      }
+    }
+  });
+};
+
+const handleFilterChange = (e) => {
+  setFilter(e.target.value);
+};
+useEffect(() => {
+  fetchBlogs();
+}, [filter]);
+
   return (
     <div className="p-4">
+         <h2 className="text-2xl font-semibold text-center my-3">Content Management</h2>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold">Content Management</h2>
+      {/* blog filter by published or draft */}
+      {/* give with select value */}
+    <select
+  value={filter}
+  onChange={handleFilterChange}
+  className="border p-2 rounded-md"
+>
+  <option value="all">All Blogs</option>
+  <option value="published">Published Blogs</option>
+  <option value="draft">Draft Blogs</option>
+</select>
+
+
         <Link to="/dashboard/content-management/add-blog">
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Add Blog</button>
         </Link>
@@ -51,6 +114,7 @@ const ContentManagement = () => {
               <th className="text-left p-3">Content</th>
               <th className="text-left p-3">Status</th>
               <th className="text-left p-3">Update Status</th>
+              <th className="text-left p-3">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -78,9 +142,20 @@ const ContentManagement = () => {
                     <option value="draft">Draft</option>
                   </select>
                 </td>
+                <td >
+                 <div className='space-x-3'>
+                   <Link to={`/dashboard/content-management/update-blog/${blog._id}`}>
+                    <button className="text-blue-600 hover:text-blue-800">
+                      <FaEdit />
+                    </button> 
+                  </Link>
+                  <button onClick={() => handleDeleteBlog(blog._id)} className="text-red-600 hover:text-red-800">
+                    <FaTrash />
+                  </button>
+                 </div>
+                </td>
               </tr>
             ))}
-          
           </tbody>
         </table>
       </div>

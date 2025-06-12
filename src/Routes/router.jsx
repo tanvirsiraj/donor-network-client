@@ -17,6 +17,7 @@ import AllUsers from "../pages/Dashboard/Admin/AllUsers/AllUsers";
 import AllBloodDonationRequest from "../pages/Dashboard/Admin/AllBloodDontaionRequest/AllBloodDonationRequest";
 import ContentManagement from "../pages/Dashboard/Admin/ContentManagement/ContentManagement";
 import AddBlog from "../pages/Dashboard/Admin/ContentManagement/AddBlog";
+import UpdateBlog from "../pages/Dashboard/Admin/ContentManagement/UpdateBlog";
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ export const router = createBrowserRouter([
     {
       path:"content-management/add-blog",
       element:<AddBlog/>
+    },
+    {
+      path:"content-management/update-blog/:id",
+      element:<UpdateBlog/>
     },
 
     ],
