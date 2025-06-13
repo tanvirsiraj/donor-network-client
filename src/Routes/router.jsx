@@ -18,6 +18,7 @@ import AllBloodDonationRequest from "../pages/Dashboard/Admin/AllBloodDontaionRe
 import ContentManagement from "../pages/Dashboard/Admin/ContentManagement/ContentManagement";
 import AddBlog from "../pages/Dashboard/Admin/ContentManagement/AddBlog";
 import UpdateBlog from "../pages/Dashboard/Admin/ContentManagement/UpdateBlog";
+import BlogDetails from "../pages/Blog/BlogDetails";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "blog",
         element: <Blog></Blog>,
+      },
+      {
+        path: "/blog/:id",
+        element:<BlogDetails/>
       },
       {
         path: "search",

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import Loading from "../../../components/Loading";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const axiosSecure = useAxiosSecure();
@@ -49,16 +50,23 @@ const Blog = () => {
               />
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
-                <p className="text-gray-600 mb-4">
-                  {blog.content.length > 100
-                    ? blog.content.slice(0, 100) + "..."
-                    : blog.content}
-                </p>
+                <div
+  className="text-gray-600 mb-4 "
+  dangerouslySetInnerHTML={{
+    __html:
+      blog.content.length > 80
+        ? blog.content.slice(0, 80) + "..."
+        : blog.content,
+  }}
+></div>
 
-                <div className="flex justify-between text-sm text-gray-500">
+                <div className="flex justify-between text-md text-gray-500">
                   <p>By <span className="font-bold text-black">{user?.displayName || "Unknown Author"}</span></p>
                   <p>{new Date(blog.createdAt).toLocaleDateString()}</p>
                 </div>
+              <Link to={`/blog/${blog._id}`} className="mt-4 flex items-center justify-center">
+                <button className="bg-primaryColor text-center text-white hover:bg-primaryColor hover:text-white text-sm font-semibold px-2 py-1 rounded">Read More</button>
+              </Link>
               </div>
             </div>
           ))}

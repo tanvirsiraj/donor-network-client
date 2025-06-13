@@ -3,7 +3,9 @@ import React from 'react'
 const Loading = () => {
   return (
     <>
-    <span className="loading loading-spinner text-info"></span>
+   <div className="flex justify-center items-center">
+     <span className="loading loading-spinner text-info"></span>
+   </div>
     </>
   )
 }
