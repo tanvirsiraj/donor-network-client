@@ -19,6 +19,8 @@ import ContentManagement from "../pages/Dashboard/Admin/ContentManagement/Conten
 import AddBlog from "../pages/Dashboard/Admin/ContentManagement/AddBlog";
 import UpdateBlog from "../pages/Dashboard/Admin/ContentManagement/UpdateBlog";
 import BlogDetails from "../pages/Blog/BlogDetails";
+import Funding from "../pages/Funding/Funding/Funding";
+import Donate from "../pages/Funding/Funding/Donate";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +63,14 @@ export const router = createBrowserRouter([
         path: "register",
         element: <Register></Register>,
       },
+      {
+        path: "funding",
+        element: <Funding/>
+      },
+      {
+        path: "/funding/donate-now",
+        element: <Donate/>
+      }
     ],
   },
   {

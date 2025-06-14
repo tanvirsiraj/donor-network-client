@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Loading from '../../components/Loading';
+import useAuth from '../../hooks/useAuth';
 
 const BlogDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
@@ -35,7 +37,7 @@ const BlogDetails = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-16">
+    <div className="max-w-4xl mx-auto px-4 py-16 mt-12">
       <img
         src={blog.thumbnail}
         alt={blog.title}
@@ -45,7 +47,7 @@ const BlogDetails = () => {
 
       <div className="text-sm text-gray-500 mb-6 flex justify-between">
         <p>
-          Author: <span className="text-gray-700 font-medium">{blog.author || "Unknown"}</span>
+          Author: <span className="text-gray-700 font-medium">{user?.displayName}</span>
         </p>
         <p>{new Date(blog.createdAt).toLocaleDateString()}</p>
       </div>
