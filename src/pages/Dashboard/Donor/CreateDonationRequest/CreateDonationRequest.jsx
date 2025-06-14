@@ -95,7 +95,7 @@ setFilteredUpazilas([]);
 
   return (
     <div className="flex  items-center pb-20    ml-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+      <div className="bg-white p-8 rounded-lg  w-full max-w-4xl">
         <h2 className="text-2xl text-center text-primaryColor font-bold mb-6">
           Create Donation Request
         </h2>

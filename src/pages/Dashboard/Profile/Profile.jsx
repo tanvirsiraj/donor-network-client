@@ -77,7 +77,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-3xl  ">
+    <div className="p-6 bg-white rounded-lg  max-w-3xl  ">
       {/* Profile Picture and Name */}
       <div className="text-center mb-6">
         <div className="w-24 h-24 mx-auto rounded-full overflow-hidden border-4 border-[#fe3c47]">
