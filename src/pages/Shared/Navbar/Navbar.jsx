@@ -3,7 +3,7 @@ import logo from "../../../../public/logo.png";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut, loading} = useAuth();
   console.log(user, "user in navbar");
 
   const handleLogout = () => {
@@ -11,6 +11,8 @@ const Navbar = () => {
       .then(() => {})
       .catch((error) => console.log(error));
   };
+
+
   const links = (
     <div className="flex items-center">
       <li>
@@ -23,7 +25,7 @@ const Navbar = () => {
         <NavLink to="/blog">Blog</NavLink>
       </li>
 
-      {user ? (
+      {loading ? null :user ? (
         <>
           <li>
             <NavLink to="/funding">Funding</NavLink>
