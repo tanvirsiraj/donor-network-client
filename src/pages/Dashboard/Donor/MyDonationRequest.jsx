@@ -57,9 +57,10 @@ const MyDonationRequest = () => {
   };
 
   const handleSaveUpdate = async () => {
+     console.log("Updating with:", editModalData); 
     try {
       const res = await axiosSecure.patch(
-        `/donation-requests/${editModalData._id}`,
+        `/donation-request-update/${editModalData._id}`,
         {
           recipientName: editModalData.recipientName,
           bloodGroup: editModalData.bloodGroup,
