@@ -99,9 +99,10 @@ const Dashboard = () => {
           )}
 
           {role === "volunteer" && (
+           <>
             <li>
               <NavLink
-                to="/dashboard/volunteer-requests"
+                to="/dashboard/all-blood-request"
                 className={({ isActive }) =>
                   `flex items-center space-x-2 px-3 py-2 rounded-md ${
                     isActive ? "bg-primaryColor text-white font-semibold" : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -109,9 +110,23 @@ const Dashboard = () => {
                 }
                 onClick={() => setIsSidebarOpen(false)}
               >
-                <FaList /> <span>Assigned Requests</span>
+                <FaList /> <span>All Blood Request</span>
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/dashboard/content-managements-volunteer"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                    isActive ? "bg-primaryColor text-white font-semibold" : "text-gray-700 hover:bg-primaryColor hover:text-white"
+                  }`
+                }
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                <FaList /> <span>Content Managements</span>
+              </NavLink>
+            </li>
+           </>
           )}
 
           {role === "admin" && (

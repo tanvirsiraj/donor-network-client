@@ -21,6 +21,8 @@ import UpdateBlog from "../pages/Dashboard/Admin/ContentManagement/UpdateBlog";
 import BlogDetails from "../pages/Blog/BlogDetails";
 import Funding from "../pages/Funding/Funding/Funding";
 import Donate from "../pages/Funding/Funding/Donate";
+import AllBloodRequest from "../pages/Dashboard/Volunteer/AllBloodRequest";
+import ContentManagementVolunteer from "../pages/Dashboard/Volunteer/ContentManagementVolunteer";
 
 export const router = createBrowserRouter([
   {
@@ -118,6 +120,15 @@ export const router = createBrowserRouter([
       path:"content-management/update-blog/:id",
       element:<UpdateBlog/>
     },
+    {
+      path:"all-blood-request",
+      element: <AllBloodRequest/>
+    },
+    {
+      path:'content-managements-volunteer',
+      element:<ContentManagementVolunteer/>
+    }
+    
 
     ],
   },
