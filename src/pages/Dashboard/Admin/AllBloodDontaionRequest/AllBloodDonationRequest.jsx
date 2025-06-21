@@ -1,8 +1,10 @@
-"use client";
+
 
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { FaTrash } from "react-icons/fa";
 
 
 const AllBloodDonationRequest = () => {
@@ -22,6 +24,34 @@ const AllBloodDonationRequest = () => {
     
   }, [user, axiosSecure]);
 
+    const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/donation-requests/${id}`)
+          .then((res) => {
+            if (res.data.deletedCount > 0) {
+              Swal.fire("Deleted!", "The request has been removed.", "success");
+              setDonationRequests((prev) =>
+                prev.filter((item) => item._id !== id)
+              );
+            }
+          })
+          .catch((err) => {
+            Swal.fire("Error", "Failed to delete the request.", "error");
+            console.error(err);
+          });
+      }
+    });
+  };
   const filteredRequests =
     filter === "all"
       ? donationRequests
@@ -61,6 +91,7 @@ const AllBloodDonationRequest = () => {
               <th className="px-4 py-2">Date</th>
               <th className="px-4 py-2">Time</th>
               <th className="px-4 py-2">Status</th>
+              <th className="px-4 py-2">Actions</th>
             </tr>
           </thead>
           <tbody className="text-gray-700">
@@ -97,6 +128,15 @@ const AllBloodDonationRequest = () => {
                     >
                       {req.status}
                     </span>
+                  </td>
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() => handleDelete(req._id)}
+                      className="text-red-600 hover:text-red-800"
+                      title="Delete"
+                    >
+                      <FaTrash/>
+                    </button>
                   </td>
                 </tr>
               ))
