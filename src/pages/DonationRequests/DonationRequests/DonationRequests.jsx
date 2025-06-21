@@ -51,7 +51,7 @@ const DonationRequests = () => {
       </div>
     ) : (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {donationRequests.map((request) => (
+        {donationRequests?.map((request) => (
           <div key={request._id} className="card bg-white shadow-xl">
             <div className="card-body">
               <h2 className="card-title text-primaryColor">

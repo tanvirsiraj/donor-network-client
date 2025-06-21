@@ -24,6 +24,9 @@ const Navbar = () => {
       <li>
         <NavLink to="/blog">Blog</NavLink>
       </li>
+      <li>
+        <NavLink to="/search">Search</NavLink>
+      </li>
 
       {loading ? null :user ? (
         <>
@@ -58,7 +61,7 @@ const Navbar = () => {
       ) : (
         <li>
           <Link
-            className="bg-primaryColor text-white hover:bg-primaryColor hover:text-white text-lg font-semibold"
+            className="bg-primaryColor text-white ml-2 hover:bg-primaryColor hover:text-white text-md font-semibold"
             to="/login"
           >
             Login
@@ -68,7 +71,7 @@ const Navbar = () => {
     </div>
   );
   return (
-    <div className="bg-white shadow-lg py-2 fixed w-full top-0 z-50">
+    <div className="bg-white shadow-lg py-2 fixed w-full top-0 z-50 px-4">
       <div className="navbar bg-base-100 max-w-7xl mx-auto px-2 lg:px-0">
         <div className="navbar-start">
           <div className="dropdown">
