@@ -3,7 +3,7 @@ import banner2 from "../../../assets/banner1.avif";
 const ContactUs = () => {
   return (
     <div
-      className="hero min-h-screen bg-fixed"
+      className="hero min-h-screen bg-fixed "
       style={{
         backgroundImage: `url(${banner2})`,
       }}
