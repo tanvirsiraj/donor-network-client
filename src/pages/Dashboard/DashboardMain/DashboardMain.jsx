@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import useRole from "../../../hooks/userRole";
 import { AuthContext } from "../../../providers/AuthProvider";
+import AdminDashboard from "./AdminDashboard";
+import DonorDashboard from "./DonorDashboard";
 
 
 const DashboardMain = () => {
@@ -10,18 +12,18 @@ const DashboardMain = () => {
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-3xl font-bold mb-4">Welcome to your Dashboard <span className="text-blue-800">{user?.displayName}! </span></h1>
+      <h1 className="text-3xl font-bold mb-4">Welcome, <span className="text-blue-800">{user?.displayName} as <span className="text-orange-400 ">{role}</span> </span></h1>
 
       {role === "admin" && (
-        <p className="text-lg text-blue-600">You are logged in as an Admin.</p>
+        <AdminDashboard/>
       )}
 
       {role === "volunteer" && (
-        <p className="text-lg text-green-600">You are logged in as a Volunteer.</p>
+       <AdminDashboard/>
       )}
 
       {role === "donor" && (
-        <p className="text-lg text-purple-600">You are logged in as a Donor.</p>
+       <DonorDashboard/>
       )}
     </div>
   );
