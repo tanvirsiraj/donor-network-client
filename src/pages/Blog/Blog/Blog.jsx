@@ -61,7 +61,7 @@ const Blog = () => {
 ></div>
 
                 <div className="flex justify-between text-md text-gray-500">
-                  <p>By <span className="font-bold text-black">{user?.displayName || "Tanvir Hasan"}</span></p>
+                  <p>By <span className="font-bold text-black">{ "Tanvir Hasan"}</span></p>
                   <p>{new Date(blog.createdAt).toLocaleDateString()}</p>
                 </div>
               <Link to={`/blog/${blog._id}`} className="mt-4 flex items-center justify-center">
