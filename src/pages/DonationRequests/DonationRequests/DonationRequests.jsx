@@ -36,7 +36,7 @@ const DonationRequests = () => {
   }, []); */
 
   return (
-  <div className="max-w-7xl mx-auto mt-40">
+  <div className="max-w-7xl mx-3 mt-20 mb-20 ">
   <div className="py-10 bg-gray-50">
     {donationRequests?.length === 0 ? (
       <div className="flex flex-col items-center justify-center text-center px-4">
