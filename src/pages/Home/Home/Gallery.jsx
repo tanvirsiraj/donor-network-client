@@ -24,13 +24,13 @@ const Gallery = () => {
           {images.map((img, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-lg shadow-lg cursor-pointer transition-transform hover:scale-95"
+              className=" rounded-lg shadow-lg h-full cursor-pointer transition-transform hover:scale-95"
               onClick={() => setSelectedImage(img)}
             >
               <img
                 src={img}
                 alt={`Gallery ${i}`}
-                className="w-full mb-4 object-cover rounded-md"
+                className="w-full h-full mb-4 object-cover rounded-md"
               />
             </div>
           ))}
@@ -39,14 +39,16 @@ const Gallery = () => {
         {/* Modal on image click */}
         {selectedImage && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+            className="fixed inset-0   bg-black bg-opacity-70 flex items-center justify-center z-50"
             onClick={() => setSelectedImage(null)}
           >
-            <img
+           <div className="lg:m-0 m-4">
+             <img
               src={selectedImage}
               alt="Enlarged"
-              className="max-w-3xl max-h-[90vh] rounded-lg border-4 border-white"
+              className=" lg:max-w-3xl max-h-[90vh] rounded-lg border-4   border-white"
             />
+           </div>
           </div>
         )}
       </div>

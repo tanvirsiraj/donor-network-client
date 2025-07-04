@@ -2,19 +2,17 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../../../public/logo.png";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
+
 const Navbar = () => {
-  const { user, logOut, loading} = useAuth();
-  console.log(user, "user in navbar");
+  const { user, logOut, loading } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    logOut()
-      .then(() => {})
-      .catch((error) => console.log(error));
+    logOut().catch((error) => console.log(error));
   };
 
-
-  const links = (
-    <div className="flex items-center">
+  const navLinks = (
+    <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
@@ -27,88 +25,126 @@ const Navbar = () => {
       <li>
         <NavLink to="/search">Search</NavLink>
       </li>
-
-      {loading ? null :user ? (
-        <>
-          <li>
-            <NavLink to="/funding">Funding</NavLink>
-          </li>
-          <div className="dropdown dropdown-end dropdown-hover ">
-            <div tabIndex={0} role="button" className="">
-              <img
-                src={user.photoURL || "/default-avatar.png"}
-                alt="Avatar"
-                className="w-12 h-12 rounded-full cursor-pointer "
-              />
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu bg-base-100 rounded-box z-[10] w-52 p-4  shadow pt-4 space-y-4"
-            >
-              <Link to="/dashboard" className=" hover:bg-gray-100 rounded-t-lg">
-                Dashboard
-              </Link>
-
-              <button
-                onClick={handleLogout}
-                className="bg-primaryColor text-white hover:bg-red-500 hover:text-white text-lg font-semibold w-fit px-4 py-2 rounded-lg transition duration-300"
-              >
-                Logout
-              </button>
-            </ul>
-          </div>
-        </>
-      ) : (
+      {user && (
         <li>
-          <Link
-            className="bg-primaryColor text-white ml-2 hover:bg-primaryColor hover:text-white text-md font-semibold"
-            to="/login"
-          >
-            Login
-          </Link>
+          <NavLink to="/funding">Funding</NavLink>
         </li>
       )}
-    </div>
+    </>
   );
+
   return (
-    <div className="bg-white shadow-lg py-2 fixed w-full top-0 z-50 px-4">
-      <div className="navbar bg-base-100 max-w-7xl mx-auto px-2 lg:px-0">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+    <div className="bg-white shadow-md fixed w-full top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex justify-between items-center">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <img className="w-10 h-10" src={logo} alt="logo" />
+          <span className="text-xl font-bold leading-5">
+            <span className="text-primaryColor">Donor</span>
+            <br /> Network
+          </span>
+        </Link>
+
+        {/* Hamburger menu for mobile */}
+        <div className="lg:hidden">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-gray-600 hover:text-black focus:outline-none"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {isMenuOpen ? (
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
                 />
-              </svg>
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {/* Desktop Menu */}
+        <ul className="hidden lg:flex gap-6 items-center font-medium">
+          {navLinks}
+          {!loading && user ? (
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button">
+                <img
+                  src={user.photoURL || "/default-avatar.png"}
+                  alt="Avatar"
+                  className="w-10 h-10 rounded-full cursor-pointer"
+                />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-white shadow rounded-box w-52 mt-2 p-2 space-y-2"
+              >
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-primaryColor text-white hover:bg-red-500 w-full py-2 rounded"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              {links}
-            </ul>
-          </div>
-          <Link to="/" className="flex items-center gap-2">
-            <img className="w-[40px] h-[40px]" src={logo} alt="" />
-            <span className="text-xl font-bold leading-5">
-              <span className="text-primaryColor">Donor</span> <br /> Network
-            </span>
-          </Link>
-        </div>
-        <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal  p-0 ">{links}</ul>
-        </div>
+          ) : (
+            <li>
+              <Link
+                to="/login"
+                className="bg-primaryColor text-white px-4 py-2 rounded hover:bg-primaryColor/90"
+              >
+                Login
+              </Link>
+            </li>
+          )}
+        </ul>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-white shadow-md px-4 pb-4">
+          <ul className="space-y-2 font-medium">{navLinks}</ul>
+          {!loading && user ? (
+            <div className="mt-4 space-y-2">
+              <Link to="/dashboard" className="block text-sm">
+                Dashboard
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="bg-primaryColor text-white w-full py-2 rounded hover:bg-red-500"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="inline-block mt-4 bg-primaryColor text-white px-4 py-2 rounded hover:bg-primaryColor/90"
+            >
+              Login
+            </Link>
+          )}
+        </div>
+      )}
     </div>
   );
 };

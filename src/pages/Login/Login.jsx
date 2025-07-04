@@ -73,9 +73,8 @@ const Login = () => {
   //   });
   // };
   useEffect(() => {
-  setValue("email", "alamin12@gmail.com");
-  setValue("password", "developer504");
-}, [setValue]);
+
+}, []);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-primaryColor bg-opacity-20">
