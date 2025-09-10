@@ -29,11 +29,11 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="p-6 my-20 ">
+    <div className=" my-20 max-w-7xl mx-auto">
       <h2 className="text-3xl font-semibold mb-6 text-center">Latest Blogs</h2>
 
       {loading ? (
-        <Loading/>
+        <Loading />
       ) : blogs.length === 0 ? (
         <p className="text-center text-gray-500">No published blogs found.</p>
       ) : (
@@ -51,22 +51,32 @@ const Blog = () => {
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
                 <div
-  className="text-gray-600 mb-4 "
-  dangerouslySetInnerHTML={{
-    __html:
-      blog.content.length > 80
-        ? blog.content.slice(0, 80) + "..."
-        : blog.content,
-  }}
-></div>
+                  className="text-gray-600 mb-4 "
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      blog.content.length > 80
+                        ? blog.content.slice(0, 80) + "..."
+                        : blog.content,
+                  }}
+                ></div>
 
                 <div className="flex justify-between text-md text-gray-500">
-                  <p>By <span className="font-bold text-black">{ "Tanvir Hasan"}</span></p>
+                  <p>
+                    By{" "}
+                    <span className="font-bold text-black">
+                      {"Tanvir Hasan"}
+                    </span>
+                  </p>
                   <p>{new Date(blog.createdAt).toLocaleDateString()}</p>
                 </div>
-              <Link to={`/blog/${blog._id}`} className="mt-4 flex items-center justify-center">
-                <button className="bg-primaryColor text-center text-white hover:bg-primaryColor hover:text-white text-sm font-semibold px-2 py-1 rounded">Read More</button>
-              </Link>
+                <Link
+                  to={`/blog/${blog._id}`}
+                  className="mt-4 flex items-center justify-center"
+                >
+                  <button className="bg-primaryColor text-center text-white hover:bg-primaryColor hover:text-white text-sm font-semibold px-2 py-1 rounded">
+                    Read More
+                  </button>
+                </Link>
               </div>
             </div>
           ))}

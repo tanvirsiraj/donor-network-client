@@ -66,11 +66,11 @@ const Search = () => {
     }
   };
 
-  if(loading){
-    return <Loading/>
+  if (loading) {
+    return <Loading />;
   }
   return (
-    <div className="min-h-screen px-4 py-20 bg-gray-50">
+    <div className="min-h-screen px-4 pt-28 py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto bg-white shadow-lg p-6 rounded-lg">
         <h2 className="text-2xl font-bold text-center text-primaryColor mb-6">
           Search Blood Donors
@@ -166,23 +166,27 @@ const Search = () => {
               Found {donors.length} Donor{donors.length > 1 ? "s" : ""}
             </h3>
             <div className="grid gap-4 md:grid-cols-2">
-              {donors.map((donor) => (
-                console.log("Rendering donor:", donor),
-                <div
-                  key={donor._id}
-                  className="bg-white p-4 rounded-lg shadow-md border"
-                >
-                  <h4 className="text-lg font-semibold text-gray-800">
-                    {donor.name}
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    <strong>Blood Group:</strong> {donor.bloodGroup}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    <strong>Contact:</strong> {donor?.email || "N/A"}
-                  </p>
-                </div>
-              ))}
+              {donors.map(
+                (donor) => (
+                  console.log("Rendering donor:", donor),
+                  (
+                    <div
+                      key={donor._id}
+                      className="bg-white p-4 rounded-lg shadow-md border"
+                    >
+                      <h4 className="text-lg font-semibold text-gray-800">
+                        {donor.name}
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        <strong>Blood Group:</strong> {donor.bloodGroup}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        <strong>Contact:</strong> {donor?.email || "N/A"}
+                      </p>
+                    </div>
+                  )
+                )
+              )}
             </div>
           </>
         )}

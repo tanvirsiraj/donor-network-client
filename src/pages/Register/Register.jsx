@@ -105,7 +105,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center py-20 bg-primaryColor bg-opacity-20 mt-20">
+    <div className="flex justify-center items-center py-20 bg-primaryColor bg-opacity-20 mt-16">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
         <h2 className="text-2xl text-center text-primaryColor font-bold mb-6">
           Please Register

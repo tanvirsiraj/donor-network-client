@@ -97,7 +97,7 @@ const Profile = () => {
         {isEditable && (
           <button
             onClick={handleEdit}
-            className="btn btn-primary mt-2 px-6 py-2 text-white bg-[#fe3c47] rounded-lg"
+            className="btn border-none btn-primary mt-2 px-6 py-2 text-white bg-[#fe3c47] rounded-lg"
           >
             Edit
           </button>

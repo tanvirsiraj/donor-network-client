@@ -57,7 +57,7 @@ const MyDonationRequest = () => {
   };
 
   const handleSaveUpdate = async () => {
-     console.log("Updating with:", editModalData); 
+    console.log("Updating with:", editModalData);
     try {
       const res = await axiosSecure.patch(
         `/donation-request-update/${editModalData._id}`,
@@ -150,7 +150,7 @@ const MyDonationRequest = () => {
                   <td className="px-4 py-2">{req.donationTime}</td>
                   <td className="px-4 py-2">
                     <span
-                      className={`px-2 py-1 rounded text-xs font-semibold ${
+                      className={`px-2 py-1 rounded text-sm font-semibold ${
                         req.status === "inprogress"
                           ? "bg-yellow-100 text-yellow-800"
                           : req.status === "completed"
