@@ -29,7 +29,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/donation-requests"
+                to="/donationRequests"
                 className="hover:text-white transition"
               >
                 Donation Requests

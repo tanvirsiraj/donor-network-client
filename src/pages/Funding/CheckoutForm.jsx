@@ -19,7 +19,7 @@ const CheckoutForm = () => {
   useEffect(() => {
     if (amount > 0) {
       axios
-        .post("http://localhost:5000/create-payment-intent", {
+        .post("https://donor-network-server.vercel.app/create-payment-intent", {
           amount: Number(amount),
         })
         .then((res) => {
@@ -73,7 +73,10 @@ const CheckoutForm = () => {
         transactionId: paymentIntent.id,
       };
 
-      await axios.post("http://localhost:5000/donations", donationInfo);
+      await axios.post(
+        "https://donor-network-server.vercel.app/donations",
+        donationInfo
+      );
 
       setProcessing(false);
       amountRef.current.value = "";
@@ -102,7 +105,7 @@ const CheckoutForm = () => {
           onChange={(e) => setAmount(e.target.value)}
           className="w-full px-4 py-2 border rounded-md"
           required
-            ref={amountRef}
+          ref={amountRef}
         />
       </div>
 

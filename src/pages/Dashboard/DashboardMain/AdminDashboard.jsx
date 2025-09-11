@@ -32,7 +32,7 @@ const AdminDashboard = () => {
 
         // Sort and get the 5 most recent donations
         const sorted = donations
-          .filter(d => d.date)
+          .filter((d) => d.date)
           .sort((a, b) => new Date(b.date) - new Date(a.date))
           .slice(0, 5);
         setRecentDonations(sorted);
@@ -74,7 +74,7 @@ const AdminDashboard = () => {
         <div className="bg-white shadow-lg rounded-2xl p-6 flex items-center gap-4">
           <div className="text-green-600 text-4xl">
             <FaHandHoldingUsd />
-        </div>
+          </div>
           <div>
             <h3 className="text-xl font-semibold">Total Funding</h3>
             <p className="text-gray-700 text-lg">${totalFunding.toFixed(2)}</p>
@@ -107,14 +107,14 @@ const AdminDashboard = () => {
           <tbody>
             {recentDonations.length > 0 ? (
               recentDonations.map((donation, index) => (
-                <tr key={index} className="hover:bg-gray-50">
+                <tr key={index} className="hover:bg-gray-50 text-left">
                   <td className="px-4 py-2 border-b">
                     {donation.donorName || "Anonymous"}
                   </td>
-                  <td className="px-4 py-2 border-b">
+                  <td className="px-4 py-2 border-b text-left">
                     ${parseFloat(donation.amount).toFixed(2)}
                   </td>
-                  <td className="px-4 py-2 border-b">
+                  <td className="px-4 py-2 border-b text-left">
                     {new Date(donation.date).toLocaleDateString()}
                   </td>
                 </tr>
