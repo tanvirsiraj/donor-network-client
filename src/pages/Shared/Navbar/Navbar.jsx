@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../../../public/logo.png";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
+import "./Navbar.css";
 
 const Navbar = () => {
   const { user, logOut, loading } = useAuth();
@@ -13,20 +14,20 @@ const Navbar = () => {
 
   const navLinks = (
     <>
-      <li>
+      <li className="text-base lg:text-lg">
         <NavLink to="/">Home</NavLink>
       </li>
-      <li>
+      <li className="text-base lg:text-lg">
         <NavLink to="/donationRequests">Donation Requests</NavLink>
       </li>
-      <li>
+      <li className="text-base lg:text-lg">
         <NavLink to="/blog">Blog</NavLink>
       </li>
-      <li>
+      <li className="text-base lg:text-lg">
         <NavLink to="/search">Search</NavLink>
       </li>
       {user && (
-        <li>
+        <li className="text-base lg:text-lg">
           <NavLink to="/funding">Funding</NavLink>
         </li>
       )}
@@ -110,7 +111,7 @@ const Navbar = () => {
             <li>
               <Link
                 to="/login"
-                className="bg-primaryColor text-white px-4 py-2 rounded hover:bg-primaryColor/90"
+                className="bg-primaryColor text-white px-4 py-2 rounded hover:bg-primaryColor/90 "
               >
                 Login
               </Link>

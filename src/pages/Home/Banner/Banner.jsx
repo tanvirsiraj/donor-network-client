@@ -16,22 +16,22 @@ const Banner = () => {
           <h1 className="text-2xl md:text-5xl font-bold mb-4">
             Be the Link, Save a Life.
           </h1>
-          <p className="text-lg leading-6 mb-10">
+          <p className="text-sm md:text-lg md:leading-6 mb-5   md:mb-10">
             Donor Network is a free platform connecting blood donors with those
             in need across Bangladesh. It provides real-time, seamless access to
             voluntary donors, ensuring life-saving support is just a click away.
             Join us in building a stronger, healthier community by bridging the
             gap between donors and recipients effortlessly.
           </p>
-          <div className="flex justify-center items-center gap-6 ">
+          <div className="flex justify-center items-center gap-2 md:gap-6 ">
             <Link
-              className="bg-primaryColor text-white hover:bg-red-500 hover:text-white text-lg font-semibold w-fit px-4 py-2 rounded-lg transition duration-300 shadow-xl"
+              className="bg-primaryColor text-white hover:bg-red-500 hover:text-white text-sm md:text-lg font-semibold w-fit px-2 py-2 md:px-4 md:py-2 rounded-lg transition duration-300 shadow-xl"
               to="/register"
             >
               Join as a Donor
             </Link>
             <Link
-              className="bg-primaryColor text-white hover:bg-red-500 hover:text-white text-lg font-semibold w-fit px-4 py-2 rounded-lg transition duration-300 shadow-xl"
+              className="bg-primaryColor text-white hover:bg-red-500 hover:text-white text-sm md:text-lg font-semibold w-fit px-2 py-2 md:px-4 md:py-2 rounded-lg transition duration-300 shadow-xl"
               to="/search"
             >
               Search Donors
