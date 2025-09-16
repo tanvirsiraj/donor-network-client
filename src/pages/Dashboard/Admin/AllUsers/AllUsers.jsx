@@ -36,15 +36,17 @@ const AllUsers = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-semibold mb-4">All Users</h3>
+    <div className="md:p-4 pt-12 md:pt-4">
+      <div className="flex justify-between items-center md:mb-4">
+        <h3 className="text-xl font-semibold md:text-2xl md:font-bold mb-4">
+          All Users
+        </h3>
         {/* filter by status */}
         <div className="mb-4">
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="select select-bordered w-full max-w-xs h-1/2"
+            className="select md:border-2 select-bordered w-full max-w-xs h-1/2 md:text-base md:font-bold"
           >
             <option value="all">All</option>
             <option value="active">Active</option>
@@ -56,8 +58,8 @@ const AllUsers = () => {
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead className="bg-gray-100 ">
-            <tr className="text-black text-sm font-bold">
-              <th>Avatar</th>
+            <tr className="text-black text-base md:text-lg font-semibold">
+              <th>Image</th>
               <th>Email</th>
               <th>Name</th>
               <th>Role</th>
@@ -76,13 +78,13 @@ const AllUsers = () => {
                     <img
                       src={user.image}
                       alt="avatar"
-                      className="w-10 h-10 rounded-full"
+                      className="w-12 h-12 md:w-12 md:h-12 rounded-full "
                     />
                   </td>
-                  <td>{user.email}</td>
-                  <td>{user.name}</td>
-                  <td>{user.role}</td>
-                  <td>{user.status}</td>
+                  <td className="md:text-base md:font-medium">{user.email}</td>
+                  <td className="md:text-base md:font-medium">{user.name}</td>
+                  <td className="md:text-base md:font-medium">{user.role}</td>
+                  <td className="md:text-base md:font-medium">{user.status}</td>
                   <td className="relative">
                     <button
                       onClick={() =>
@@ -101,7 +103,7 @@ const AllUsers = () => {
                       >
                         {user.status === "active" ? (
                           <button
-                            className="w-full text-left text-red-600 hover:bg-gray-100 px-2 py-1"
+                            className="w-full text-left text-red-600 hover:bg-gray-100 px-2 py-1 md:font-medium"
                             onClick={() =>
                               handleStatusChange(user._id, "blocked")
                             }
@@ -110,7 +112,7 @@ const AllUsers = () => {
                           </button>
                         ) : (
                           <button
-                            className="w-full text-left text-green-600 hover:bg-gray-100 px-2 py-1"
+                            className="w-full text-left text-green-600 hover:bg-gray-100 px-2 py-1 md:font-medium"
                             onClick={() =>
                               handleStatusChange(user._id, "active")
                             }
@@ -120,7 +122,7 @@ const AllUsers = () => {
                         )}
                         {user.role !== "volunteer" && (
                           <button
-                            className="w-full text-left hover:bg-gray-100 px-2 py-1"
+                            className="w-full text-left hover:bg-gray-100 px-2 py-1 md:font-medium"
                             onClick={() =>
                               handleRoleChange(user._id, "volunteer")
                             }
@@ -130,7 +132,7 @@ const AllUsers = () => {
                         )}
                         {user.role !== "admin" && (
                           <button
-                            className="w-full text-left hover:bg-gray-100 px-2 py-1"
+                            className="w-full text-left hover:bg-gray-100 px-2 py-1 md:font-medium"
                             onClick={() => handleRoleChange(user._id, "admin")}
                           >
                             Make Admin

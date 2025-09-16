@@ -94,7 +94,7 @@ const ContentManagement = () => {
         <select
           value={filter}
           onChange={handleFilterChange}
-          className="border p-2 rounded-md"
+          className="border-2 p-2 rounded-md  md:text-base md:font-bold"
         >
           <option value="all">All Blogs</option>
           <option value="published">Published Blogs</option>
@@ -109,11 +109,11 @@ const ContentManagement = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white rounded-md shadow-md">
+        <table className="min-w-full bg-white rounded-md shadow-md ">
           <thead className="bg-gray-100">
-            <tr>
+            <tr className="text-base">
               <th className="text-left p-3">Title</th>
-              <th className="text-left p-3">Thumbnail</th>
+              <th className="text-left p-3">Image</th>
               <th className="text-left p-3">Content</th>
               <th className="text-left p-3">Status</th>
               <th className="text-left p-3">Update Status</th>
@@ -123,7 +123,7 @@ const ContentManagement = () => {
           <tbody>
             {blogs?.map((blog) => (
               <tr key={blog._id} className="border-t hover:bg-gray-50">
-                <td className="p-3">{blog.title}</td>
+                <td className="p-3 ">{blog.title}</td>
                 <td className="p-3">
                   <img
                     src={blog.thumbnail}

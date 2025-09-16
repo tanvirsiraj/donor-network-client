@@ -10,6 +10,7 @@ import {
 import useRole from "../hooks/userRole";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../../public/logo.png";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const { role, isLoading } = useRole();
@@ -36,19 +37,22 @@ const Dashboard = () => {
           fixed top-0 left-0 h-full w-64 
           bg-primaryColor bg-opacity-20 backdrop-blur-sm
           transform transition-transform duration-300 ease-in-out
-          z-30 p-6 pt-4 md:sticky md:top-0 md:translate-x-0 md:z-auto md:bg-transparent
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
+          z-30 p-4 pt-4 md:sticky md:top-0 md:translate-x-0 md:z-auto md:bg-transparent
+          ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0
         `}
       >
         {/* Logo */}
         <div className="flex items-center justify-center mb-4">
-          <Link to="/"><img src={logo} alt="Logo" className="w-24 h-24" /></Link>
+          <Link to="/">
+            <img src={logo} alt="Logo" className="w-24 h-24" />
+          </Link>
         </div>
 
         <hr className="border-gray-300 my-2" />
-    
 
-        <ul className="menu space-y-2 bg-black bg-opacity-20 backdrop-blur-sm rounded-lg p-4 h-screen">
+        <ul className="menu space-y-2 bg-black bg-opacity-20 backdrop-blur-sm rounded-lg pt-4 p-2 h-screen">
           {/* Dashboard Home */}
           <li>
             <NavLink

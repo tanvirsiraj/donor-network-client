@@ -111,7 +111,7 @@ const Profile = () => {
       >
         {/* Name */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium">
+          <label htmlFor="name" className="block font-medium">
             Name
           </label>
           <input
@@ -129,7 +129,7 @@ const Profile = () => {
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium">
+          <label htmlFor="email" className="block  font-medium">
             Email
           </label>
           <input
@@ -143,7 +143,7 @@ const Profile = () => {
 
         {/* Image */}
         <div>
-          <label htmlFor="avatar" className="block text-sm font-medium">
+          <label htmlFor="avatar" className="block  font-medium">
             Profile Picture
           </label>
           <input
@@ -161,7 +161,7 @@ const Profile = () => {
 
         {/* District */}
         <div>
-          <label htmlFor="district" className="block text-sm font-medium">
+          <label htmlFor="district" className="block  font-medium">
             Select District
           </label>
           <select
@@ -188,7 +188,7 @@ const Profile = () => {
 
         {/* Upazila */}
         <div>
-          <label htmlFor="upazila" className="block text-sm font-medium">
+          <label htmlFor="upazila" className="block  font-medium">
             Select Upazila
           </label>
           <select
@@ -213,7 +213,7 @@ const Profile = () => {
 
         {/* Blood Group */}
         <div>
-          <label htmlFor="bloodGroup" className="block text-sm font-medium">
+          <label htmlFor="bloodGroup" className="block font-medium">
             Select Blood Group
           </label>
           <select

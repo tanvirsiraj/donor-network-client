@@ -58,15 +58,15 @@ const AdminDashboard = () => {
   return (
     <>
       {/* Top Summary Cards */}
-      <div className="p-6 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <div className="md:px-2 md:py-6 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {/* Total Users */}
-        <div className="bg-white shadow-lg rounded-2xl p-6 flex items-center gap-4">
+        <div className="bg-white shadow-lg  rounded-xl p-6 flex items-center gap-4">
           <div className="text-blue-600 text-4xl">
             <FaUsers />
           </div>
           <div>
-            <h3 className="text-xl font-semibold">Total Users</h3>
-            <p className="text-gray-700 text-lg">{totalUsers}</p>
+            <h3 className="text-xl  font-semibold">Total Users</h3>
+            <p className="text-gray-700 text-lg font-medium">{totalUsers}</p>
           </div>
         </div>
 
@@ -77,7 +77,9 @@ const AdminDashboard = () => {
           </div>
           <div>
             <h3 className="text-xl font-semibold">Total Funding</h3>
-            <p className="text-gray-700 text-lg">${totalFunding.toFixed(2)}</p>
+            <p className="text-gray-700 text-lg font-medium">
+              ${totalFunding.toFixed(2)}
+            </p>
           </div>
         </div>
 
@@ -88,13 +90,13 @@ const AdminDashboard = () => {
           </div>
           <div>
             <h3 className="text-xl font-semibold">Donation Requests</h3>
-            <p className="text-gray-700 text-lg">{totalRequests}</p>
+            <p className="text-gray-700 text-lg font-medium">{totalRequests}</p>
           </div>
         </div>
       </div>
 
       {/* Recent Donations Table */}
-      <div className="p-6 mt-8 bg-white shadow-lg rounded-2xl">
+      <div className="md:px-2 md:py-6 mt-8 bg-white shadow-lg rounded-2xl">
         <h2 className="text-2xl font-semibold mb-4">Recent Donations</h2>
         <table className="min-w-full border-collapse">
           <thead>

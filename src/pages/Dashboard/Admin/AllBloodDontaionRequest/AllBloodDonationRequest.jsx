@@ -1,11 +1,8 @@
-
-
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { FaTrash } from "react-icons/fa";
-
 
 const AllBloodDonationRequest = () => {
   const { user } = useAuth();
@@ -14,17 +11,15 @@ const AllBloodDonationRequest = () => {
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-
-      axiosSecure
-        .get(`/donation-requests`)
-        .then((res) => {
-          setDonationRequests(res.data);
-        })
-        .catch((err) => console.error(err));
-    
+    axiosSecure
+      .get(`/donation-requests`)
+      .then((res) => {
+        setDonationRequests(res.data);
+      })
+      .catch((err) => console.error(err));
   }, [user, axiosSecure]);
 
-    const handleDelete = (id) => {
+  const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "This action cannot be undone!",
@@ -81,7 +76,7 @@ const AllBloodDonationRequest = () => {
       {/* Responsive Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-          <thead className="bg-gray-100 text-left text-sm uppercase text-gray-600">
+          <thead className="bg-gray-100 text-left text-sm uppercase ">
             <tr>
               <th className="px-4 py-2">Recipient</th>
               <th className="px-4 py-2">Blood Group</th>
@@ -108,7 +103,9 @@ const AllBloodDonationRequest = () => {
                   className="border-b hover:bg-gray-50 transition"
                 >
                   <td className="px-4 py-2">{req.recipientName}</td>
-                  <td className="px-4 py-2 font-semibold text-red-600">{req.bloodGroup}</td>
+                  <td className="px-4 py-2 font-semibold text-red-600">
+                    {req.bloodGroup}
+                  </td>
                   <td className="px-4 py-2">{req.recipientDistrict}</td>
                   <td className="px-4 py-2">{req.recipientUpazila}</td>
                   <td className="px-4 py-2">{req.hospitalName}</td>
@@ -116,7 +113,7 @@ const AllBloodDonationRequest = () => {
                   <td className="px-4 py-2">{req.donationTime}</td>
                   <td className="px-4 py-2">
                     <span
-                      className={`px-2 py-1 rounded text-xs font-semibold ${
+                      className={`px-2 py-1 rounded text-sm font-semibold ${
                         req.status === "inprogress"
                           ? "bg-yellow-100 text-yellow-800"
                           : req.status === "completed"
@@ -135,7 +132,7 @@ const AllBloodDonationRequest = () => {
                       className="text-red-600 hover:text-red-800"
                       title="Delete"
                     >
-                      <FaTrash/>
+                      <FaTrash />
                     </button>
                   </td>
                 </tr>
