@@ -56,14 +56,21 @@ const DonationRequests = () => {
                     Recipient: {request.recipientName}
                   </h2>
                   <p>
-                    Location: {request.recipientDistrict},{" "}
-                    {request.recipientUpazila}
+                    <span className="font-medium">Location:</span>{" "}
+                    {request.recipientDistrict}, {request.recipientUpazila}
                   </p>
                   <p>
-                    Blood Group: <strong>{request.bloodGroup}</strong>
+                    <span className="font-medium">Blood Group:</span>{" "}
+                    <strong>{request.bloodGroup}</strong>
                   </p>
-                  <p>Date: {request.donationDate}</p>
-                  <p>Time: {request.donationTime}</p>
+                  <p>
+                    <span className="font-medium">Date:</span>{" "}
+                    {request.donationDate}
+                  </p>
+                  <p>
+                    <span className="font-medium">Time:</span>{" "}
+                    {request.donationTime}
+                  </p>
                   <div className="card-actions justify-end">
                     <Link to={`/donation-requests/${request._id}`}>
                       <button className="btn bg-primaryColor text-white hover:bg-[#e03a38] transition duration-300">

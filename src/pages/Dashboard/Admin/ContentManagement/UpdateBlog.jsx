@@ -78,16 +78,19 @@ const UpdateBlog = () => {
     }
   };
 
-//   if (!blog) {
-//     return <p className="text-center mt-10">Loading blog...</p>;
-//   }
+  //   if (!blog) {
+  //     return <p className="text-center mt-10">Loading blog...</p>;
+  //   }
 
   return (
     <div>
       <h1 className="text-3xl font-bold text-center mt-10">Update Blog</h1>
-      <form onSubmit={handleUpdate} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
+      <form
+        onSubmit={handleUpdate}
+        className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg"
+      >
         <div className="mb-4">
-          <label className="block text-sm font-bold mb-2">Title</label>
+          <label className="block  font-bold mb-2">Title</label>
           <input
             name="title"
             defaultValue={blog?.title}
@@ -97,7 +100,7 @@ const UpdateBlog = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-bold mb-2">Content</label>
+          <label className="block  font-bold mb-2">Content</label>
           <JoditEditor
             ref={editor}
             value={content}
@@ -106,13 +109,27 @@ const UpdateBlog = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-bold mb-2">Thumbnail</label>
-          <img src={blog?.thumbnail} alt="Current Thumbnail" className="w-32 h-32 object-cover mb-2" />
-          <input type="file" name="blogImage" accept="image/*" className="w-full px-3 py-2 border rounded" />
-          <p className="text-sm text-gray-500 mt-1">Leave blank to keep current image.</p>
+          <label className="block  font-bold mb-2">Thumbnail</label>
+          <img
+            src={blog?.thumbnail}
+            alt="Current Thumbnail"
+            className="w-32 h-32 object-cover mb-2"
+          />
+          <input
+            type="file"
+            name="blogImage"
+            accept="image/*"
+            className="w-full px-3 py-2 border rounded"
+          />
+          <p className="text-sm text-gray-500 mt-1">
+            Leave blank to keep current image.
+          </p>
         </div>
 
-        <button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded">
+        <button
+          type="submit"
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-2 font-semibold rounded"
+        >
           Update Blog
         </button>
       </form>

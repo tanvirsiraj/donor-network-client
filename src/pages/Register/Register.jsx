@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useGetDistrictUpazila from "../../hooks/useGetDistrictUpazila";
+import { getAuth, sendEmailVerification } from "firebase/auth";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -82,7 +83,32 @@ const Register = () => {
       };
 
       createUser(data.email, data.password).then((result) => {
-        console.log(result.user);
+        const user = result.user;
+        console.log(user);
+
+        //  Send email verification
+        sendEmailVerification(user).then(() => {
+          Swal.fire({
+            icon: "info",
+            title: "Verify Your Email",
+            text: "A verification email has been sent. Please check your inbox.",
+          });
+
+          //  Update profile AFTER sending email
+          updateUserProfile(data.name, res.data.data.display_url).then(() => {
+            axiosPublic.post("/users", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                navigate("/login"); // force them to login only after verifying
+              }
+            });
+          });
+        });
+      });
+
+      /*  createUser(data.email, data.password).then((result) => {
+        // console.log(result.user);
+        const user = result.user;
+
         updateUserProfile(data.name, res.data.data.display_url).then(() => {
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
@@ -98,15 +124,15 @@ const Register = () => {
             }
           });
         });
-      });
+      }); */
 
-      console.log(userInfo);
+      // console.log(userInfo);
     }
   };
 
   return (
-    <div className="flex justify-center items-center py-20 bg-primaryColor bg-opacity-20 mt-16">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+    <div className="flex justify-center items-center px-2 md:px-0 py-20 bg-primaryColor bg-opacity-20 mt-8 md:mt-12">
+      <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg w-full max-w-2xl">
         <h2 className="text-2xl text-center text-primaryColor font-bold mb-6">
           Please Register
         </h2>
@@ -152,172 +178,179 @@ const Register = () => {
             )}
           </div>
 
-          {/* avatar  */}
-          <div className="mb-4">
-            <label
-              htmlFor="avatar"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Image
-            </label>
-            <input
-              type="file"
-              name=""
-              id="avatar"
-              {...register("avatar", { required: "Image is required" })}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
-            />
-            {errors.avatar && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.avatar.message}
-              </p>
-            )}
-          </div>
-          {/* Blood Group Selector */}
-          <div className="mb-4">
-            <label
-              htmlFor="bloodGroup"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Select Blood Group
-            </label>
-            <select
-              id="bloodGroup"
-              {...register("bloodGroup", {
-                required: "Blood group is required",
-              })}
-              className="w-full p-3 border border-gray-300  rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-            >
-              <option value="">Select Blood Group</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
-            {errors.bloodGroup && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.bloodGroup.message}
-              </p>
-            )}
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="Type your password"
-              id="password"
-              {...register("password", { required: "Password is required" })}
-              className="w-full p-3 border border-gray-300  rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-            />
-
-            {errors.password && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              placeholder="Confirm your password"
-              id="confirmPassword"
-              {...register("confirmPassword", {
-                required: "Please confirm your password",
-                validate: (value) =>
-                  value === watch("password") || "Passwords do not match",
-              })}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </div>
-          {/* district select  */}
-          <div className="mb-4">
-            <label
-              htmlFor="district"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Select District
-            </label>
-            <select
-              name=""
-              id="district"
-              {...register("district", { required: "District is required" })}
-              onChange={(e) => setSelectedDistrict(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
-            >
-              <option value="">Select District</option>
-              {districts.map((district) => (
-                <option key={district.id} value={district.id}>
-                  {district.name}
-                </option>
-              ))}
-            </select>
-            {errors.district && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.district.message}
-              </p>
-            )}
+          <div className="md:grid md:grid-cols-2 gap-2">
+            {/* avatar  */}
+            <div className="mb-4 md:mb-0 grid-cols-1">
+              <label
+                htmlFor="avatar"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Image
+              </label>
+              <input
+                type="file"
+                name=""
+                id="avatar"
+                {...register("avatar", { required: "Image is required" })}
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
+              />
+              {errors.avatar && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.avatar.message}
+                </p>
+              )}
+            </div>
+            {/* Blood Group Selector */}
+            <div className="mb-4 grid-cols-1">
+              <label
+                htmlFor="bloodGroup"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Select Blood Group
+              </label>
+              <select
+                id="bloodGroup"
+                {...register("bloodGroup", {
+                  required: "Blood group is required",
+                })}
+                className="w-full p-3 border border-gray-300  rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
+              >
+                <option value="">Select Blood Group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+              {errors.bloodGroup && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.bloodGroup.message}
+                </p>
+              )}
+            </div>
           </div>
 
-          {/* Upazila Select */}
-          <div className="mb-4">
-            <label
-              htmlFor="upazila"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Select Upazila
-            </label>
-            <select
-              id="upazila"
-              {...register("upazila", { required: "Upazila is required" })}
-              className="w-full p-3 border  border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
-              disabled={!selectedDistrict}
-            >
-              <option value="">Select Upazila</option>
-              {filteredUpazilas.map((upazila) => (
-                <option key={upazila.id} value={upazila.id}>
-                  {upazila.name}
-                </option>
-              ))}
-            </select>
-            {errors.upazila && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.upazila.message}
-              </p>
-            )}
+          <div className="md:grid md:grid-cols-2 gap-2">
+            <div className="mb-4 md:mb-0 grid-cols-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                placeholder="Type your password"
+                id="password"
+                {...register("password", { required: "Password is required" })}
+                className="w-full p-3 border border-gray-300  rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
+              />
+
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+            <div className="mb-6 grid-cols-1">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                placeholder="Confirm your password"
+                id="confirmPassword"
+                {...register("confirmPassword", {
+                  required: "Please confirm your password",
+                  validate: (value) =>
+                    value === watch("password") || "Passwords do not match",
+                })}
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
+              />
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="md:grid md:grid-cols-2 gap-2">
+            {/* district select  */}
+            <div className="mb-4 md:mb-0 grid-cols-1">
+              <label
+                htmlFor="district"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Select District
+              </label>
+              <select
+                name=""
+                id="district"
+                {...register("district", { required: "District is required" })}
+                onChange={(e) => setSelectedDistrict(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
+              >
+                <option value="">Select District</option>
+                {districts.map((district) => (
+                  <option key={district.id} value={district.id}>
+                    {district.name}
+                  </option>
+                ))}
+              </select>
+              {errors.district && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.district.message}
+                </p>
+              )}
+            </div>
+
+            {/* Upazila Select */}
+            <div className="mb-4 grid-cols-1">
+              <label
+                htmlFor="upazila"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Select Upazila
+              </label>
+              <select
+                id="upazila"
+                {...register("upazila", { required: "Upazila is required" })}
+                className="w-full p-3 border  border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
+                disabled={!selectedDistrict}
+              >
+                <option value="">Select Upazila</option>
+                {filteredUpazilas.map((upazila) => (
+                  <option key={upazila.id} value={upazila.id}>
+                    {upazila.name}
+                  </option>
+                ))}
+              </select>
+              {errors.upazila && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.upazila.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-primaryColor text-white rounded-lg hover:bg-[#e03a38] transition duration-300"
+            className="w-full py-3 bg-primaryColor text-white rounded-lg hover:bg-[#e03a38] transition duration-300 font-semibold"
           >
             Register
           </button>
           <div className="mt-4 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-base  text-gray-600">
               Already have an account?
               <Link
                 to="/login"
-                className="text-primaryColor hover:underline ml-1"
+                className="text-primaryColor hover:underline text-base font-medium ml-1"
               >
                 Login
               </Link>

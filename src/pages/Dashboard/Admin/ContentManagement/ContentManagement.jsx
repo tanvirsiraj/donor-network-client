@@ -88,13 +88,13 @@ const ContentManagement = () => {
       <h2 className="text-2xl font-semibold text-center my-3">
         Content Management
       </h2>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 ">
         {/* blog filter by published or draft */}
         {/* give with select value */}
         <select
           value={filter}
           onChange={handleFilterChange}
-          className="border-2 p-2 rounded-md  md:text-base md:font-bold"
+          className="border-2 p-2   rounded-md  md:text-base md:font-bold"
         >
           <option value="all">All Blogs</option>
           <option value="published">Published Blogs</option>

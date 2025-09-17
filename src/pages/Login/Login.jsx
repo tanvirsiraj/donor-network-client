@@ -6,14 +6,13 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 
-
 const Login = () => {
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
   } = useForm();
   const navigate = useNavigate();
   const { signIn } = useContext(AuthContext);
@@ -23,14 +22,26 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const result = await signIn(data.email, data.password);
+      const loggedUser = result.user;
+
+      /* //  Check if email is verified
+      if (!loggedUser.emailVerified) {
+        await logOut();
+        Swal.fire({
+          icon: "warning",
+          title: "Email Not Verified",
+          text: "Please verify your email before logging in.",
+        });
+        return;
+      } */
 
       // After signIn success, fetch user info from your backend
       const response = await axiosSecure.get(`/users?email=${data.email}`);
       const user = await response?.data;
-      console.log(user, 'user login');
+      console.log(user, "user login");
 
       if (user?.status === "blocked") {
-         await logOut();
+        await logOut();
         // Show alert if blocked
         Swal.fire({
           icon: "error",
@@ -72,13 +83,11 @@ const Login = () => {
   //     navigate(from);
   //   });
   // };
-  useEffect(() => {
-
-}, []);
+  useEffect(() => {}, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-primaryColor bg-opacity-20">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+    <div className="flex justify-center items-center min-h-screen bg-primaryColor bg-opacity-20 px-2 md:px-0 mt-8 md:mt-0">
+      <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg w-full max-w-lg">
         <h2 className="text-2xl text-center text-[#fe3c47] font-bold mb-6">
           Please Login
         </h2>
@@ -87,14 +96,12 @@ const Login = () => {
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
-             
             >
               Email
             </label>
             <input
               type="email"
               id="email"
-             
               {...register("email", { required: "Email is required" })}
               className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
             />
@@ -116,7 +123,6 @@ const Login = () => {
               type="password"
               id="password"
               {...register("password", { required: "Password is required" })}
-  
               className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-[#fe3c47] focus:border-[#fe3c47]"
             />
             {errors.password && (
@@ -134,9 +140,12 @@ const Login = () => {
           </button>
 
           <div className="mt-4 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-base text-gray-600">
               Don't have an account?{" "}
-              <Link to="/register" className="text-[#fe3c47] hover:underline">
+              <Link
+                to="/register"
+                className="text-[#fe3c47] hover:underline font-medium"
+              >
                 Register
               </Link>
             </p>

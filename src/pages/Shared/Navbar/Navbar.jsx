@@ -14,21 +14,31 @@ const Navbar = () => {
 
   const navLinks = (
     <>
-      <li className="text-base lg:text-lg">
-        <NavLink to="/">Home</NavLink>
+      <li>
+        <NavLink className={`text-base md:text-lg`} to="/">
+          Home
+        </NavLink>
       </li>
-      <li className="text-base lg:text-lg">
-        <NavLink to="/donationRequests">Donation Requests</NavLink>
+      <li className="text-base md:text-lg">
+        <NavLink className={`text-base md:text-lg`} to="/donationRequests">
+          Donation Requests
+        </NavLink>
       </li>
-      <li className="text-base lg:text-lg">
-        <NavLink to="/blog">Blog</NavLink>
+      <li className="text-base md:text-lg">
+        <NavLink className={`text-base md:text-lg`} to="/blog">
+          Blog
+        </NavLink>
       </li>
-      <li className="text-base lg:text-lg">
-        <NavLink to="/search">Search</NavLink>
+      <li className="text-base md:text-lg">
+        <NavLink className={`text-base md:text-lg`} to="/search">
+          Search
+        </NavLink>
       </li>
       {user && (
-        <li className="text-base lg:text-lg">
-          <NavLink to="/funding">Funding</NavLink>
+        <li className="text-base md:text-lg">
+          <NavLink className={`text-base md:text-lg`} to="/funding">
+            Funding
+          </NavLink>
         </li>
       )}
     </>
@@ -36,7 +46,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-white shadow-md fixed w-full top-0 z-50">
-      <div className="max-w-7xl mx-auto  px-4  py-4 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto  px-4  py-2 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img className="w-10 h-10" src={logo} alt="logo" />
@@ -87,15 +97,17 @@ const Navbar = () => {
                 <img
                   src={user.photoURL || "/default-avatar.png"}
                   alt="Avatar"
-                  className="w-10 h-10 rounded-full cursor-pointer"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full cursor-pointer"
                 />
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-white shadow rounded-box w-52 mt-2 p-2 space-y-2"
+                className="dropdown-content menu bg-white shadow rounded-box rounded-t-none w-52 mt-2 p-2 space-y-2"
               >
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link className="text-black" to="/dashboard">
+                    Dashboard
+                  </Link>
                 </li>
                 <li>
                   <button

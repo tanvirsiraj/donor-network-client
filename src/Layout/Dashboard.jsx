@@ -59,7 +59,7 @@ const Dashboard = () => {
               to="/dashboard"
               end
               className={({ isActive }) =>
-                `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                `flex items-center space-x-1 px-2 py-2 rounded-md ${
                   isActive
                     ? "bg-primaryColor text-white font-semibold"
                     : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -76,7 +76,7 @@ const Dashboard = () => {
             <NavLink
               to="/dashboard/profile"
               className={({ isActive }) =>
-                `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                `flex items-center space-x-1 px-2 py-2 rounded-md ${
                   isActive
                     ? "bg-primaryColor text-white font-semibold"
                     : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -95,7 +95,7 @@ const Dashboard = () => {
                 <NavLink
                   to="/dashboard/create-donation-request"
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                    `flex items-center space-x-1 px-2 py-2 rounded-md ${
                       isActive
                         ? "bg-primaryColor text-white font-semibold"
                         : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -110,7 +110,7 @@ const Dashboard = () => {
                 <NavLink
                   to="/dashboard/my-donation-request"
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                    `flex items-center space-x-1 px-2 py-2 rounded-md ${
                       isActive
                         ? "bg-primaryColor text-white font-semibold"
                         : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -131,7 +131,7 @@ const Dashboard = () => {
                 <NavLink
                   to="/dashboard/all-blood-request"
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                    `flex items-center space-x-1 px-2 py-2 rounded-md ${
                       isActive
                         ? "bg-primaryColor text-white font-semibold"
                         : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -146,7 +146,7 @@ const Dashboard = () => {
                 <NavLink
                   to="/dashboard/content-managements-volunteer"
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                    `flex items-center space-x-1 px-2 py-2 rounded-md ${
                       isActive
                         ? "bg-primaryColor text-white font-semibold"
                         : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -167,7 +167,7 @@ const Dashboard = () => {
                 <NavLink
                   to="/dashboard/all-users"
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                    `flex items-center space-x-1 px-2 py-2 rounded-md ${
                       isActive
                         ? "bg-primaryColor text-white font-semibold"
                         : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -182,7 +182,7 @@ const Dashboard = () => {
                 <NavLink
                   to="/dashboard/all-blood-donation-request"
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                    `flex items-center space-x-1 px-2 py-2 rounded-md ${
                       isActive
                         ? "bg-primaryColor text-white font-semibold"
                         : "text-gray-700 hover:bg-primaryColor hover:text-white"
@@ -197,7 +197,7 @@ const Dashboard = () => {
                 <NavLink
                   to="/dashboard/content-management"
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md ${
+                    `flex items-center space-x-1 px-2 py-2 rounded-md ${
                       isActive
                         ? "bg-primaryColor text-white font-semibold"
                         : "text-gray-700 hover:bg-primaryColor hover:text-white"

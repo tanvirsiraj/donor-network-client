@@ -134,7 +134,7 @@ const CheckoutForm = () => {
       <button
         type="submit"
         disabled={!stripe || !clientSecret}
-        className="bg-red-500 text-white w-full py-2 mt-4 rounded hover:bg-red-600 transition"
+        className="bg-red-500 text-white w-full py-2 mt-4 rounded hover:bg-red-600 transition font-semibold"
       >
         {processing ? "Processing..." : "Donate Now"}
       </button>

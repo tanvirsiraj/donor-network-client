@@ -12,7 +12,7 @@ const Footer = () => {
           <Link to="/" className="inline-block mb-4">
             <img src={logo} alt="Logo" className="h-14" />
           </Link>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm ">
             A community-driven blood donation platform to help those in need.
             Connect, donate, and save lives.
           </p>

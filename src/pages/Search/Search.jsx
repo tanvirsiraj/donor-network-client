@@ -198,12 +198,18 @@ const Search = () => {
                       </div>
                       <div>
                         <p className="text-sm md:text-base ">
-                          <strong>Blood Group:</strong> {donor.bloodGroup}
+                          <strong>Blood Group:</strong>{" "}
+                          <span className="font-extrabold">
+                            {donor.bloodGroup}
+                          </span>
                         </p>
                       </div>
                       <div>
                         <p className="text-sm md:text-base">
-                          <strong>Contact:</strong> {donor?.email || "N/A"}
+                          <strong>Contact:</strong>{" "}
+                          <span className="font-medium">
+                            {donor?.email || "N/A"}
+                          </span>
                         </p>
                       </div>
                     </div>

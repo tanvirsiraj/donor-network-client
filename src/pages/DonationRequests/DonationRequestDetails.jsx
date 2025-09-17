@@ -49,7 +49,7 @@ const DonationRequestDetails = () => {
   return (
     <div className="mt-40 max-w-7xl mx-auto">
       <div className="py-10 bg-gray-50">
-        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 ">
           <p>
             <strong>Recipient Name:</strong>{" "}
             {donationRequestsDetails.recipientName}

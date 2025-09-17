@@ -20,8 +20,6 @@ const CreateDonationRequest = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-
-
   // Filter upazilas based on the selected district
   useEffect(() => {
     if (selectedDistrict) {
@@ -33,7 +31,7 @@ const CreateDonationRequest = () => {
       setFilteredUpazilas([]);
     }
   }, [selectedDistrict, upazilas]);
-    if (isLoading) {
+  if (isLoading) {
     return (
       <span className="loading loading-spinner loading-lg text-primaryColor"></span>
     );
@@ -81,7 +79,7 @@ const CreateDonationRequest = () => {
         });
         reset();
         setSelectedDistrict("");
-setFilteredUpazilas([]);
+        setFilteredUpazilas([]);
       }
     } catch (error) {
       console.error("Error creating donation request:", error);
@@ -101,7 +99,7 @@ setFilteredUpazilas([]);
         </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm md:text-base text-black font-medium ">
               Requester Name
             </label>
             <input
@@ -113,7 +111,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm md:text-base text-black font-medium ">
               Requester Email
             </label>
             <input
@@ -125,7 +123,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm md:text-base text-black font-medium ">
               Recipient Name
             </label>
             <input
@@ -144,7 +142,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm md:text-base text-black font-medium ">
               Recipient District
             </label>
             <select
@@ -167,7 +165,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm md:text-base text-black font-medium ">
               Recipient Upazila
             </label>
             <select
@@ -190,7 +188,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm md:text-base text-black font-medium ">
               Hospital Name
             </label>
             <input
@@ -209,7 +207,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block font-medium text-sm md:text-base text-black">
               Full Address
             </label>
             <input
@@ -228,7 +226,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block  font-medium text-sm md:text-base text-black">
               Blood Group
             </label>
             <select
@@ -255,7 +253,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block  font-medium  text-sm md:text-base text-black">
               Donation Date
             </label>
             <input
@@ -273,7 +271,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block  font-medium text-sm md:text-base text-black">
               Donation Time
             </label>
             <input
@@ -291,7 +289,7 @@ setFilteredUpazilas([]);
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm md:text-base text-black font-medium ">
               Request Message
             </label>
             <textarea
@@ -311,7 +309,7 @@ setFilteredUpazilas([]);
 
           <button
             type="submit"
-            className="w-full py-3 bg-primaryColor text-white rounded-lg hover:bg-[#e03a38] transition duration-300"
+            className="w-full py-3 bg-primaryColor text-white rounded-lg hover:bg-[#e03a38] transition duration-300 font-semibold"
           >
             Create Request
           </button>
