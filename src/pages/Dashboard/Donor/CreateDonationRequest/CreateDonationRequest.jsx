@@ -93,7 +93,7 @@ const CreateDonationRequest = () => {
 
   return (
     <div className="flex  items-center pb-20    ml-4">
-      <div className="bg-white p-8 rounded-lg  w-full max-w-4xl">
+      <div className="bg-white mt-12 md:mt-0 md:p-8 rounded-lg  w-full max-w-4xl">
         <h2 className="text-2xl text-center text-primaryColor font-bold mb-6">
           Create Donation Request
         </h2>
@@ -141,88 +141,92 @@ const CreateDonationRequest = () => {
             )}
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm md:text-base text-black font-medium ">
-              Recipient District
-            </label>
-            <select
-              {...register("district", { required: "District is required" })}
-              onChange={(e) => setSelectedDistrict(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-            >
-              <option value="">Select District</option>
-              {districts.map((district) => (
-                <option key={district.id} value={district.id}>
-                  {district.name}
-                </option>
-              ))}
-            </select>
-            {errors.district && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.district.message}
-              </p>
-            )}
+          <div className="md:grid md:grid-cols-2 gap-2">
+            <div className="mb-4 grid-cols-1">
+              <label className="block text-sm md:text-base text-black font-medium ">
+                Recipient District
+              </label>
+              <select
+                {...register("district", { required: "District is required" })}
+                onChange={(e) => setSelectedDistrict(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
+              >
+                <option value="">Select District</option>
+                {districts.map((district) => (
+                  <option key={district.id} value={district.id}>
+                    {district.name}
+                  </option>
+                ))}
+              </select>
+              {errors.district && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.district.message}
+                </p>
+              )}
+            </div>
+
+            <div className="mb-4 grid-cols-1">
+              <label className="block text-sm md:text-base text-black font-medium ">
+                Recipient Upazila
+              </label>
+              <select
+                {...register("upazila", { required: "Upazila is required" })}
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
+                disabled={!selectedDistrict}
+              >
+                <option value="">Select Upazila</option>
+                {filteredUpazilas.map((upazila) => (
+                  <option key={upazila.id} value={upazila.id}>
+                    {upazila.name}
+                  </option>
+                ))}
+              </select>
+              {errors.upazila && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.upazila.message}
+                </p>
+              )}
+            </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm md:text-base text-black font-medium ">
-              Recipient Upazila
-            </label>
-            <select
-              {...register("upazila", { required: "Upazila is required" })}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-              disabled={!selectedDistrict}
-            >
-              <option value="">Select Upazila</option>
-              {filteredUpazilas.map((upazila) => (
-                <option key={upazila.id} value={upazila.id}>
-                  {upazila.name}
-                </option>
-              ))}
-            </select>
-            {errors.upazila && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.upazila.message}
-              </p>
-            )}
-          </div>
+          <div className="md:grid md:grid-cols-2 gap-2">
+            <div className="mb-4 grid-cols-1">
+              <label className="block text-sm md:text-base text-black font-medium ">
+                Hospital Name
+              </label>
+              <input
+                type="text"
+                {...register("hospitalName", {
+                  required: "Hospital name is required",
+                })}
+                placeholder="Hospital Name"
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
+              />
+              {errors.hospitalName && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.hospitalName.message}
+                </p>
+              )}
+            </div>
 
-          <div className="mb-4">
-            <label className="block text-sm md:text-base text-black font-medium ">
-              Hospital Name
-            </label>
-            <input
-              type="text"
-              {...register("hospitalName", {
-                required: "Hospital name is required",
-              })}
-              placeholder="Hospital Name"
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-            />
-            {errors.hospitalName && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.hospitalName.message}
-              </p>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label className="block font-medium text-sm md:text-base text-black">
-              Full Address
-            </label>
-            <input
-              type="text"
-              {...register("fullAddress", {
-                required: "Full address is required",
-              })}
-              placeholder="Full Address"
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-            />
-            {errors.fullAddress && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.fullAddress.message}
-              </p>
-            )}
+            <div className="mb-4 grid-cols-1">
+              <label className="block font-medium text-sm md:text-base text-black">
+                Full Address
+              </label>
+              <input
+                type="text"
+                {...register("fullAddress", {
+                  required: "Full address is required",
+                })}
+                placeholder="Full Address"
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
+              />
+              {errors.fullAddress && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.fullAddress.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className="mb-4">
@@ -251,41 +255,42 @@ const CreateDonationRequest = () => {
               </p>
             )}
           </div>
+          <div className="md:grid md:grid-cols-2 gap-2">
+            <div className="mb-4 grid-cols-1">
+              <label className="block  font-medium  text-sm md:text-base text-black">
+                Donation Date
+              </label>
+              <input
+                type="date"
+                {...register("donationDate", {
+                  required: "Donation date is required",
+                })}
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
+              />
+              {errors.donationDate && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.donationDate.message}
+                </p>
+              )}
+            </div>
 
-          <div className="mb-4">
-            <label className="block  font-medium  text-sm md:text-base text-black">
-              Donation Date
-            </label>
-            <input
-              type="date"
-              {...register("donationDate", {
-                required: "Donation date is required",
-              })}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-            />
-            {errors.donationDate && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.donationDate.message}
-              </p>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label className="block  font-medium text-sm md:text-base text-black">
-              Donation Time
-            </label>
-            <input
-              type="time"
-              {...register("donationTime", {
-                required: "Donation time is required",
-              })}
-              className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-            />
-            {errors.donationTime && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.donationTime.message}
-              </p>
-            )}
+            <div className="mb-4 grid-cols-1">
+              <label className="block  font-medium text-sm md:text-base text-black">
+                Donation Time
+              </label>
+              <input
+                type="time"
+                {...register("donationTime", {
+                  required: "Donation time is required",
+                })}
+                className="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
+              />
+              {errors.donationTime && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.donationTime.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className="mb-4">
