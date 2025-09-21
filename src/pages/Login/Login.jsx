@@ -18,23 +18,26 @@ const Login = () => {
   const { signIn } = useContext(AuthContext);
   const { logOut } = useAuth();
   const from = location.state?.from?.pathname || "/";
+  const fromRegister = location.state?.fromRegister || false;
 
   const onSubmit = async (data) => {
     try {
       const result = await signIn(data.email, data.password);
       const loggedUser = result.user;
+      // State to determine if user is coming from registration page
 
-      /* //  Check if email is verified
-      if (!loggedUser.emailVerified) {
-        await logOut();
-        Swal.fire({
-          icon: "warning",
-          title: "Email Not Verified",
-          text: "Please verify your email before logging in.",
-        });
-        return;
-      } */
-
+      //  Check if email is verified
+      if (fromRegister) {
+        if (!loggedUser.emailVerified) {
+          await logOut();
+          Swal.fire({
+            icon: "warning",
+            title: "Email Not Verified",
+            text: "Please verify your email before logging in.",
+          });
+          return;
+        }
+      }
       // After signIn success, fetch user info from your backend
       const response = await axiosSecure.get(`/users?email=${data.email}`);
       const user = await response?.data;
@@ -83,6 +86,16 @@ const Login = () => {
   //     navigate(from);
   //   });
   // };
+
+  /*   useEffect(() => {
+  if (fromRegister) {
+    Swal.fire({
+      icon: "info",
+      title: "Please Verify Your Email",
+      text: "We have sent you an email verification link. Please verify your email before logging in.",
+    }); 
+  }
+}, [fromRegister]); */
   useEffect(() => {}, []);
 
   return (

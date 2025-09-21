@@ -98,7 +98,9 @@ const Register = () => {
           updateUserProfile(data.name, res.data.data.display_url).then(() => {
             axiosPublic.post("/users", userInfo).then((res) => {
               if (res.data.insertedId) {
-                navigate("/login"); // force them to login only after verifying
+                // navigate("/login");
+                // Navigate to login page with state indicating that the user just registered
+                navigate("/login", { state: { fromRegister: true } });
               }
             });
           });
